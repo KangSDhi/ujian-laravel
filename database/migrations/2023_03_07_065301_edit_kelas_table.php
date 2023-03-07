@@ -11,10 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('kelas', function (Blueprint $table) {
-            $table->id();
-            $table->string('kelas')->unique();
-            $table->timestamps();
+        Schema::table('kelas', function(Blueprint $table) {
+            $table->enum('tingkat', ['X', 'XI', 'XII', 'XIII']);
         });
     }
 
@@ -23,6 +21,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('kelas');
+        //
     }
 };
