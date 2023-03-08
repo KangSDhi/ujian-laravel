@@ -19,7 +19,7 @@
                     </a>
                     <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                         <li><a href="{{ route('get.landing')}}" class="nav-link px-2 text-secondary">Beranda</a></li>
-                        <li><a href="#" class="nav-link px-2 text-white">Tentang</a></li>
+                        <li><a href="{{ route('get.about')}}" class="nav-link px-2 text-white">Tentang</a></li>
                     </ul>
                     <div class="text-end">
                         <button type="button" class="btn btn-outline-light me-2">Masuk</button>
@@ -34,5 +34,6 @@
     </main>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
+    @stack('script')
 </body>
 </html>

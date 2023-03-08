@@ -15,3 +15,4 @@ use App\Http\Controllers\Landing\LandingController as Landing;
 */
 
 Route::get('/', [Landing::class, 'index'])->name('get.landing');
+Route::get('/about', [Landing::class, 'about'])->name('get.about');
