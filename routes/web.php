@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Landing\LandingController as Landing;
+use App\Http\Controllers\Auth\AuthController as Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +17,6 @@ use App\Http\Controllers\Landing\LandingController as Landing;
 
 Route::get('/', [Landing::class, 'index'])->name('get.landing');
 Route::get('/about', [Landing::class, 'about'])->name('get.about');
+
+Route::get('/login', [Auth::class, 'index'])->name('get.login');
+Route::post('/login', [Auth::class, 'login'])->name('post.login');
