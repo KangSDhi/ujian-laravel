@@ -15,3 +15,13 @@
     </div>
 </div>
 @endsection
+
+@push('script')
+<script>
+    const linkHome = document.getElementById("link-home");
+    const linkAbout = document.getElementById("link-about");
+
+    linkHome.classList.replace("text-secondary", "text-white");
+    linkAbout.classList.replace("text-white", "text-secondary");
+</script>
+@endpush

@@ -12,3 +12,13 @@
     </div>
 </div>
 @endsection
+
+@push('script')
+<script>
+    const linkHome = document.getElementById("link-home");
+    const linkAbout = document.getElementById("link-about");
+
+    linkHome.classList.replace("text-white", "text-secondary");
+    linkAbout.classList.replace("text-secondary", "text-white");
+</script>
+@endpush
