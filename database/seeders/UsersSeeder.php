@@ -15,13 +15,27 @@ class UsersSeeder extends Seeder
     {
         $data = array(
             array(
-                'name'      => 'Sigit Boworaharjo',
-                'email'     => 'kangteknisi@gmail.com',
-                'password'  => bcrypt('akuNkamu1'),
-                'role_id'   => 1,
+                'name'          => 'Sigit Boworaharjo',
+                'email'         => 'kangteknisi@gmail.com',
+                'password'      => bcrypt('qwerty'),
+                'role_id'       => 1,
                 'created_at'    => date("Y-m-d H:i:s"),
                 'updated_at'    => date("Y-m-d H:i:s"),
-            )
+            ),
+        );
+        DB::table('users')->insert($data);
+
+        $data = array(
+            array(
+                'name'          => 'Arya nada',
+                'email'         => 'aryanada@gmail.com',
+                'password'      => bcrypt('qwerty'),
+                'kelas_id'      => 45,
+                'NISN'          => '00477584',
+                'role_id'       => 3,
+                'created_at'    => date("Y-m-d H:i:s"),
+                'updated_at'    => date("Y-m-d H:i:s"),
+            ),
         );
         DB::table('users')->insert($data);
     }

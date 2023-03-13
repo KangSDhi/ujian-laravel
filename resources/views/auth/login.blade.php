@@ -87,8 +87,9 @@
                     emailAtauNISN: emailAtauNISN,
                     password: password
             })
-            .then(function(response) {
-                console.log(response);
+            .then(function({ data }) {
+                console.log(data);
+                localStorage.setItem("token", data.token);
             })
             .catch(function(error) {
                 console.error(error);
