@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Landing\LandingController as Landing;
 use App\Http\Controllers\Auth\AuthController as Auth;
 use App\Http\Controllers\Error\ErrorController as Error;
+use App\Http\Controllers\Admin\DashboardController as DashboardAdmin;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,22 +17,16 @@ use App\Http\Controllers\Error\ErrorController as Error;
 |
 */
 
-Route::get('/', [Landing::class, 'index'])->name('get.landing');
-Route::get('/about', [Landing::class, 'about'])->name('get.about');
+Route::middleware(['guest'])->group(function(){
+    Route::get('/', [Landing::class, 'index'])->name('get.landing');
+    Route::get('/about', [Landing::class, 'about'])->name('get.about');
 
-Route::get('/login', [Auth::class, 'index'])->name('get.login');
-Route::post('/login', [Auth::class, 'login'])->name('post.login');
+    Route::get('/login', [Auth::class, 'index'])->name('get.login');
+    Route::post('/login', [Auth::class, 'login'])->name('post.login');
 
-Route::get('/accessDenied', [Error::class, 'accessDenied'])->name('get.accessDenied');
+    Route::get('/accessDenied', [Error::class, 'accessDenied'])->name('get.accessDenied');
+});
 
-// Route::group(['prefix' => 'admin', 'middleware' => 'api'], function(){
-//     Route::get('me', function(){
-//         return response()->json(auth()->user());
-//     });
-// });
-
-Route::middleware(['auth:api', 'cekrole.admin'])->group(function(){
-    Route::get('me/we', function(){
-        return response()->json(auth()->user());
-    });
+Route::middleware(['auth:api', 'cekrole.admin'])->prefix('admin')->name('admin.')->group(function(){
+    Route::get('/dashboard', [DashboardAdmin::class, 'index'])->name('get.dashboard');
 });

@@ -23,6 +23,9 @@ class AuthController extends Controller
         $validator = Validator::make($request->all(), [
             'emailAtauNISN' => 'required',
             'password' => 'required'
+        ],[
+            'emailAtauNISN.required' => 'Email Atau NISN Kosong!',
+            'password.required' => 'Password Kosong!'
         ]);
 
         if ($validator->fails()) {
@@ -41,7 +44,7 @@ class AuthController extends Controller
             );
         }
 
-        if (!$token = auth()->guard('api')->attempt($credentials)) {
+        if (!$token = auth()->guard('api')->setTTL(1440)->attempt($credentials)) {
             return response()->json([
                 'success' => false,
                 'message' => 'Email, NISN atau Password Salah!'
@@ -51,7 +54,7 @@ class AuthController extends Controller
         $user = auth()->guard('api')->user();
 
         if ($user->role_id == 1) {
-            $link = "dashboardadmin";
+            $link = route('admin.get.dashboard');
             $data = new AdminResource($user);
         } else if ($user->role_id == 2) {
             $link = "dashboardguru";
