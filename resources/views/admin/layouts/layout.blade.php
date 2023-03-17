@@ -30,9 +30,10 @@
                         <span class="fs-4 d-none d-sm-inline">Aplikasi Ujian</span>
                     </a>
                     <hr>
-                    <ul class="nav nav-pills flex-column mb-auto" x-data>
+                    <ul class="nav nav-pills flex-column mb-auto">
                         <li class="nav-item">
-                            <a href="#" class="nav-link" :class="{ 'active': true === {{ request()->routeIs('admin.get.dashboard') ? 'true': 'false' }} }">
+                            <a x-data="{ link: '{{ route('admin.get.dashboard') }}'+'?token='+ localStorage.getItem('token')  }"
+                            x-bind:href="link" class="nav-link" :class="{ 'active': true === {{ request()->routeIs('admin.get.dashboard') ? 'true': 'false' }} }">
                                 <i class="bi bi-speedometer2 text-white"></i>
                                 <span class="ms-1 d-none d-sm-inline text-white">Dashboard</span>
                             </a>
@@ -50,7 +51,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a  x-data="{ link: '{{ route('admin.get.datatable.guru') }}'+'?token='+ localStorage.getItem('token')  }" 
+                            x-bind:href="link" class="nav-link" :class="{ 'active': true === {{ request()->routeIs('admin.get.datatable.guru') ? 'true': 'false' }} }">
                                 <i class="bi bi-database text-white"></i>
                                 <span class="ms-1 d-none d-sm-inline text-white">Data Guru</span>
                             </a>
@@ -83,6 +85,9 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"
         integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous">
+    </script>
+    <script>
+
     </script>
     @stack('script')
 </body>

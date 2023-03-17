@@ -5,6 +5,7 @@ use App\Http\Controllers\Landing\LandingController as Landing;
 use App\Http\Controllers\Auth\AuthController as Auth;
 use App\Http\Controllers\Error\ErrorController as Error;
 use App\Http\Controllers\Admin\DashboardController as DashboardAdmin;
+use App\Http\Controllers\Admin\GuruController as GuruAdmin;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,4 +30,6 @@ Route::middleware(['guest'])->group(function(){
 
 Route::middleware(['auth:api', 'cekrole.admin'])->prefix('admin')->name('admin.')->group(function(){
     Route::get('/dashboard', [DashboardAdmin::class, 'index'])->name('get.dashboard');
+    Route::get('/guru', [DashboardAdmin::class, 'guru'])->name('get.datatable.guru');
+    Route::post('/guru/data', [GuruAdmin::class, 'getAllGuru'])->name('post.data.guru');
 });
