@@ -17,12 +17,19 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $role_id = rand(1, 3);
+        $nisn = null;
+        if ($role_id == 3) {
+            $nisn = rand(10000000, 90000000);
+        }
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'password' => bcrypt('qwerty'),
             'remember_token' => Str::random(10),
+            'role_id' => $role_id,
+            'NISN' => $nisn
         ];
     }
 
