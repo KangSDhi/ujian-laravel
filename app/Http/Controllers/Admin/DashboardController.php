@@ -21,4 +21,11 @@ class DashboardController extends Controller
         $data['user'] = new AdminResource(auth()->user());
         return view("admin.dataGuru", $data);
     }
+
+    public function siswa()
+    {
+        $data['title'] = "Data Siswa";
+        $data['user'] = new AdminResource(auth()->user());
+        return view("admin.dataSiswa",$data);
+    }
 }

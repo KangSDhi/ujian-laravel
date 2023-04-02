@@ -45,7 +45,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a x-data="{ link: '{{ route('admin.get.datatable.siswa') }}'+'?token='+ localStorage.getItem('token')  }" 
+                            x-bind:href="link" class="nav-link" :class="{ 'active': true === {{ request()->routeIs('admin.get.datatable.siswa') ? 'true' : 'false' }} }">
                                 <i class="bi bi-database text-white"></i>
                                 <span class="ms-1 d-none d-sm-inline text-white">Data Siswa</span>
                             </a>

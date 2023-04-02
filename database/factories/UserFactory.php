@@ -19,8 +19,10 @@ class UserFactory extends Factory
     {
         $role_id = rand(1, 3);
         $nisn = null;
+        $kelas_id = null;
         if ($role_id == 3) {
             $nisn = rand(10000000, 90000000);
+            $kelas_id = rand(1, 55);
         }
         return [
             'name' => fake()->name(),
@@ -29,7 +31,8 @@ class UserFactory extends Factory
             'password' => bcrypt('qwerty'),
             'remember_token' => Str::random(10),
             'role_id' => $role_id,
-            'NISN' => $nisn
+            'NISN' => $nisn,
+            'kelas_id' => $kelas_id,
         ];
     }
 
