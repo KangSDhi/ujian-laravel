@@ -2,16 +2,13 @@
 
 @section('title', $title)
 
-@push('css')
-@endpush
-
 @section('content')
     <div class="col py-3">
         <section class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-12 col-sm-6">
-                        <h1 class="m-0">Data Guru</h1>
+                        <h1 class="m-0">Data Siswa</h1>
                     </div>
                     <div class="col-12 col-sm-6" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                         <ol class="breadcrumb float-end">
@@ -19,7 +16,7 @@
                                 <a href="#">Aplikasi Ujian</a>
                             </li>
                             <li class="breadcrumb-item active">
-                                Data Guru
+                                Data Siswa
                             </li>
                         </ol>
                     </div>
@@ -35,26 +32,44 @@
                                 <div class="d-flex justify-content-between">
                                     <div class="d-flex gap-2 align-items-center">
                                         <div class="align-self-center">Show</div>
-                                        <select x-model="view" @change="changeView()"
-                                            class="form-select form-select-sm align-self-center">
-                                            <template x-for="(item, index) in listView" :key="index">
-                                                <option :value="item" x-text="item"></option>
+                                        <select x-model="view" @change="changeView()" class="form-select form-select-sm align-self-center">
+                                            <template x-for="(item, index) in listView">
+                                                <option x-bind:value="item" x-text="item"></option>
                                             </template>
-                                            
                                         </select>
                                     </div>
                                     <div>
-                                        <input x-model="searchInput" x-init="$watch('searchInput', value => { search(value) })" type="text"
-                                            class="form-control" placeholder="Cari....">
+                                        <input x-model="searchInput" x-init="$watch('searchInput', value => { search(value) })" type="text" class="form-control" placeholder="Cari...">
                                     </div>
                                 </div>
                                 <table class="table table-striped table-hover">
                                     <thead>
                                         <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">
+                                            <th scoop="col">#</th>
+                                            <th scoop="col">
                                                 <div class="d-flex gap-1">
-                                                    <span>Name</span>
+                                                    <span>Kelas</span>
+                                                    <div class="d-flex flex-column">
+                                                        <svg @click="sort('kelas', 'asc')" fill="none" fill="none"
+                                                            stroke-linecap="round" stroke-linejoin="round" stroke-width="4"
+                                                            viewBox="0 0 24 24" stroke="currentColor" width="12px"
+                                                            height="12px"
+                                                            x-bind:class="{ 'text-primary': sorted.field === 'kelas' && sorted.rule === 'asc' }">
+                                                            <path d="M5 15l7-7 7 7"></path>
+                                                        </svg>
+                                                        <svg @click="sort('kelas', 'desc')" fill="none"
+                                                            stroke-linecap="round" stroke-linejoin="round" stroke-width="4"
+                                                            viewBox="0 0 24 24" stroke="currentColor" width="12px"
+                                                            height="12px"
+                                                            x-bind:class="{ 'text-primary': sorted.field === 'kelas' && sorted.rule === 'desc' }">
+                                                            <path d="M19 9l-7 7-7-7"></path>
+                                                        </svg>
+                                                    </div>
+                                                </div>
+                                            </th>
+                                            <th class="col">
+                                                <div class="d-flex gap-1">
+                                                    <span>Nama Lengkap</span>
                                                     <div class="d-flex flex-column">
                                                         <svg @click="sort('name', 'asc')" fill="none" fill="none"
                                                             stroke-linecap="round" stroke-linejoin="round" stroke-width="4"
@@ -73,7 +88,7 @@
                                                     </div>
                                                 </div>
                                             </th>
-                                            <th scope="col">
+                                            <th class="col">
                                                 <div class="d-flex gap-1">
                                                     <span>Email</span>
                                                     <div class="d-flex flex-column">
@@ -88,7 +103,7 @@
                                                             stroke-linecap="round" stroke-linejoin="round" stroke-width="4"
                                                             viewBox="0 0 24 24" stroke="currentColor" width="12px"
                                                             height="12px"
-                                                            x-bind:class="{'text-primary': sorted.field === 'email' && sorted.rule === 'desc' }">
+                                                            x-bind:class="{ 'text-primary': sorted.field === 'email' && sorted.rule === 'desc' }">
                                                             <path d="M19 9l-7 7-7-7"></path>
                                                         </svg>
                                                     </div>
@@ -101,7 +116,8 @@
                                         <template x-for="(item, index) in items" :key="index">
                                             <tr x-show="checkView(index + 1)">
                                                 <td x-text="index + 1"></td>
-                                                <td x-text="item.name "></td>
+                                                <td x-text="item.kelas"></td>
+                                                <td x-text="item.name"></td>
                                                 <td x-text="item.email"></td>
                                                 <td x-data="{button: '<a href=\'#?token='+token+'\' class=\'btn btn-info mx-2\'>Edit</a><a href=\'#?token='+token+'\' class=\'btn btn-danger\'>Hapus</a>'}">
                                                     <div x-html="button"></div>
@@ -112,7 +128,7 @@
                                 </table>
                                 <div class="pagination">
                                     <div class="page-item" @click.prevent="changePage(1)">
-                                        <span class="page-link" role="button">First</span>
+                                        <span class="page-link" role="button">Awal</span>
                                     </div>
                                     <div class="page-item" @click.prevent="changePage(currentPage - 1)">
                                         <span class="page-link" role="button">
@@ -130,7 +146,7 @@
                                         </span>
                                     </div>
                                     <div class="page-item" @click.prevent="changePage(pagination.lastPage)">
-                                        <span class="page-link" role="button">Last</span>
+                                        <span class="page-link" role="button">Akhir</span>
                                     </div>
                                 </div>
                             </div>
@@ -147,7 +163,7 @@
         integrity="sha256-EIyuZ2Lbxr6vgKrEt8W2waS6D3ReLf9aeoYPZ/maJPI=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.js"></script>
     <script>
-        window.dataTable = function() {
+        function dataTable() {
             return {
                 token: localStorage.getItem('token'),
                 data: [],
@@ -163,17 +179,19 @@
                     perPage: 5,
                     currentPage: 1,
                     from: 1,
-                    to: 1 * 5,
+                    to: 1 * 5
                 },
                 currentPage: 1,
                 sorted: {
-                    field: 'name',
+                    field: 'kelas',
                     rule: 'asc'
                 },
                 initData() {
                     async function fetchData() {
                         try {
-                            const {data} = await axios.post('{{ route('admin.post.data.guru') }}', {}, {
+                            const {
+                                data
+                            } = await axios.post('{{ route('admin.post.data.siswa') }}', {}, {
                                 headers: {
                                     'Authorization': 'Bearer ' + localStorage.getItem("token")
                                 }
@@ -185,26 +203,99 @@
                     }
 
                     fetchData()
-                    .then(data => {
-                        console.log(data);
-                        this.data = data.sort(this.compareOnKey('name', 'asc'));
-                        this.items = data.sort(this.compareOnKey('name', 'asc'));
-                        this.pagination.total = data.length;
-                        this.pagination.lastPage = Math.ceil(data.length / 5);
-                        this.listView.push(data.length);
-                        this.listView = this.listView.sort(function(a, b){return a - b});
+                        .then(data => {
+                            console.log(data);
+                            this.items = this.data = data;
+                            this.pagination.lastPage = Math.ceil(data.length / 5);
+
+                            this.showPages();
+                        })
+                        .catch(error => {
+                            console.error(error);
+                        });
+                },
+                checkView(index) {
+                    return index > this.pagination.to || index < this.pagination.from ? false : true;
+                },
+                changeView() {
+                    this.changePage(1);
+                    this.showPages();
+                },
+                changePage(page) {
+                    if (page >= 1 && page <= this.pagination.lastPage) {
+                        console.log("--------------Change Page------------------");
+                        this.currentPage = page;
+                        console.log("current Page : "+this.currentPage);
+                        const total = this.items.length;
+                        console.log("Total : "+total);
+                        const lastPage = Math.ceil(total / this.view) || 1;
+                        console.log("Last Page : "+lastPage);
+                        const from = (page - 1) * this.view + 1;
+                        console.log("From : "+from);
+                        let to = page * this.view;
+                        console.log("To : "+to);
+                        if(page === lastPage) {
+                            to = total;
+                        }
+
+                        this.pagination.total = total;
+                        this.pagination.lastPage = lastPage;
+                        this.pagination.perPage = this.view;
+                        this.pagination.currentPage = page;
+                        this.pagination.from = from;
+                        this.pagination.to = to;
+
                         this.showPages();
-                    })
-                    .catch(error => {
-                        console.error(error);
-                    });
+                        console.log("--------------Change Page------------------");
+                    }
+                },
+                showPages() {
+                    console.log("----------------- Show Pages -------------");
+                    const pages = [];
+                    let from = this.pagination.currentPage - Math.ceil(this.offset / 2);
+                    if (from < 1) {
+                        from = 1;
+                    }
+                    let to = from + this.offset - 1;
+                    if (to > this.pagination.lastPage) {
+                        to = this.pagination.lastPage;
+                    }
+                    while(from <= to) {
+                        pages.push(from);
+                        from++;
+                    }
+                    this.pages = pages;
+                    console.log(this.pages);
+                    console.log("----------------- Show Pages -------------");
+                },
+                search(value){
+                    console.log("----------------- Search -------------");
+                    console.log("Search Value : "+value);
+                    if (value.length >= 1) {
+                        const options = {
+                            shouldSort: true,
+                            keys: ['kelas', 'name', 'email'],
+                            threshold: 0
+                        };
+                        const fuse = new Fuse(this.data, options);
+                        this.items = fuse.search(value).map(elem => elem.item);
+                        console.log(this.items);
+                    } else {
+                        this.items = this.data;
+                    }
+                    console.log("----------------- Search -------------");
+                },
+                sort(field, rule) {
+                    this.items = this.items.sort(this.compareOnKey(field, rule));
+                    this.sorted.field = field;
+                    this.sorted.rule = rule;
                 },
                 compareOnKey(key, rule) {
                     return function(a, b) {
-                        if (key === 'name' || key === 'email') {
-                            let comparison = 0
-                            const fieldA = a[key].toUpperCase()
-                            const fieldB = b[key].toUpperCase()
+                        if (key === 'kelas' || key === 'name' || key === 'email') {
+                            let comparison = 0;
+                            const fieldA = a[key].toUpperCase();
+                            const fieldB = b[key].toUpperCase();
                             if (rule === 'asc') {
                                 if (fieldA > fieldB) {
                                     comparison = 1;
@@ -214,80 +305,13 @@
                             } else {
                                 if (fieldA < fieldB) {
                                     comparison = 1;
-                                } else if (fieldA > fieldB) {
+                                } else if (fieldA > fieldB){
                                     comparison = -1;
                                 }
                             }
-                            return comparison
-                        } else {
-                            if (rule === 'asc') {
-                                return a.year - b.year
-                            } else {
-                                return b.year - a.year
-                            }
+                            return comparison;
                         }
                     }
-                },
-                sort(field, rule) {
-                    this.items = this.items.sort(this.compareOnKey(field, rule));
-                    this.sorted.field = field;
-                    this.sorted.rule = rule;
-                },
-                checkView(index) {
-                    return index > this.pagination.to || index < this.pagination.from ? false : true
-                },
-                search(value) {
-                    if (value.length >= 1) {
-                        const options = {
-                            shouldSort: true,
-                            keys: ['name', 'email'],
-                            threshold: 0
-                        }
-                        const fuse = new Fuse(this.items, options);
-                        this.items = fuse.search(value).map(elem => elem.item);
-                        console.log(this.items);
-                    } else {
-                        this.items = this.data;
-                    }
-                },
-                changePage(page) {
-                    if (page >= 1 && page <= this.pagination.lastPage) {
-                        this.currentPage = page
-                        const total = this.items.length
-                        const lastPage = Math.ceil(total / this.view) || 1
-                        const from = (page - 1) * this.view + 1
-                        let to = page * this.view
-                        if (page === lastPage) {
-                            to = total
-                        }
-                        this.pagination.total = total
-                        this.pagination.lastPage = lastPage
-                        this.pagination.perPage = this.view
-                        this.pagination.currentPage = page
-                        this.pagination.from = from
-                        this.pagination.to = to
-                        this.showPages()
-                    }
-                },
-                showPages() {
-                    const pages = []
-                    let from = this.pagination.currentPage - Math.ceil(this.offset / 2)
-                    if (from < 1) {
-                        from = 1
-                    }
-                    let to = from + this.offset - 1
-                    if (to > this.pagination.lastPage) {
-                        to = this.pagination.lastPage
-                    }
-                    while (from <= to) {
-                        pages.push(from)
-                        from++
-                    }
-                    this.pages = pages
-                },
-                changeView() {
-                    this.changePage(1);
-                    this.showPages()
                 }
             }
         }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\AuthController as Auth;
 use App\Http\Controllers\Error\ErrorController as Error;
 use App\Http\Controllers\Admin\DashboardController as DashboardAdmin;
 use App\Http\Controllers\Admin\GuruController as GuruAdmin;
+use App\Http\Controllers\Admin\SiswaController as SiswaAdmin;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,4 +33,6 @@ Route::middleware(['auth:api', 'cekrole.admin'])->prefix('admin')->name('admin.'
     Route::get('/dashboard', [DashboardAdmin::class, 'index'])->name('get.dashboard');
     Route::get('/guru', [DashboardAdmin::class, 'guru'])->name('get.datatable.guru');
     Route::post('/guru/data', [GuruAdmin::class, 'getAllGuru'])->name('post.data.guru');
+    Route::get('/siswa', [DashboardAdmin::class, 'siswa'])->name('get.datatable.siswa');
+    Route::post('/siswa/data', [SiswaAdmin::class, 'getAllSiswa'])->name('post.data.siswa');
 });
