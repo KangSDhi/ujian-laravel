@@ -39,7 +39,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a x-data="{ link: '{{ route('admin.get.datatable.soal') }}'+'?token='+ localStorage.getItem('token')  }"
+                            :href="link" class="nav-link" :class="{ 'active': true === {{ request()->routeIs('admin.get.datatable.soal') ? 'true': 'false' }} }">
                                 <i class="bi bi-database text-white"></i>
                                 <span class="ms-1 d-none d-sm-inline text-white">Data Soal</span>
                             </a>

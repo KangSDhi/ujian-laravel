@@ -23,7 +23,8 @@ class DatabaseSeeder extends Seeder
             JurusanSeeder::class,
             KelasSeeder::class,
             UsersRoleSeeder::class,
-            UsersSeeder::class
+            UsersSeeder::class,
+            SoalSeeder::class,
         ]);
 
         \App\Models\User::factory(200)->create();
