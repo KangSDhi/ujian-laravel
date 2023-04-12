@@ -33,7 +33,7 @@
                                     <div class="d-flex gap-2 align-items-center">
                                         <div class="align-self-center">Show</div>
                                         <select x-model="view" @change="changeView()" class="form-select form-select-sm align-self-center">
-                                            <template x-for="(item, index) in listView">
+                                            <template x-for="(item, index) in listViewBinding()">
                                                 <option x-bind:value="item" x-text="item"></option>
                                             </template>
                                         </select>
@@ -127,25 +127,25 @@
                                     </tbody>
                                 </table>
                                 <div class="pagination">
-                                    <div class="page-item" @click.prevent="changePage(1)">
+                                    <div class="page-item" @click.prevent="clickPage(1)">
                                         <span class="page-link" role="button">Awal</span>
                                     </div>
-                                    <div class="page-item" @click.prevent="changePage(currentPage - 1)">
+                                    <div class="page-item" @click.prevent="clickPage(pagination.currentPage - 1)">
                                         <span class="page-link" role="button">
                                             < 
                                         </span>
                                     </div>
-                                    <template x-for="(item, index) in pages" :key="index">
-                                        <div class="page-item" @click.prevent="changePage(item)">
-                                            <span class="page-link" x-bind:class="{ 'bg-info text-dark': currentPage === item }" x-text="item" role="button"></span>
+                                    <template x-for="(item, index) in pagination.pages" :key="index">
+                                        <div class="page-item" @click.prevent="clickPage(item)">
+                                            <span class="page-link" x-bind:class="{ 'bg-info text-dark': pagination.currentPage === item }" x-text="item" role="button"></span>
                                         </div>
                                     </template>
-                                    <div class="page-item" @click.prevent="changePage(currentPage + 1)">
+                                    <div class="page-item" @click.prevent="clickPage(pagination.currentPage + 1)">
                                         <span class="page-link" role="button">
                                             >
                                         </span>
                                     </div>
-                                    <div class="page-item" @click.prevent="changePage(pagination.lastPage)">
+                                    <div class="page-item" @click.prevent="clickPage(pagination.lastPage)">
                                         <span class="page-link" role="button">Akhir</span>
                                     </div>
                                 </div>
@@ -159,29 +159,27 @@
 @endsection
 
 @push('script')
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"
-        integrity="sha256-EIyuZ2Lbxr6vgKrEt8W2waS6D3ReLf9aeoYPZ/maJPI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.js"></script>
     <script>
-        function dataTable() {
+        const dataTable = () => {
             return {
                 token: localStorage.getItem('token'),
                 data: [],
                 items: [],
-                listView: [5, 10, 25, 50, 100],
-                view: 5,
+                listView: [10, 25, 50, 100],
+                view: 10,
                 searchInput: '',
-                pages: [],
-                offset: 5,
                 pagination: {
+                    pages: [],
                     total: 0,
                     lastPage: 0,
                     perPage: 5,
                     currentPage: 1,
+                    offset: 5,
                     from: 1,
-                    to: 1 * 5
+                    to: 10
                 },
-                currentPage: 1,
                 sorted: {
                     field: 'kelas',
                     rule: 'asc'
@@ -204,9 +202,8 @@
 
                     fetchData()
                         .then(data => {
-                            console.log(data);
                             this.items = this.data = data;
-                            this.pagination.lastPage = Math.ceil(data.length / 5);
+                            this.pagination.lastPage = Math.ceil(data.length / this.view);
 
                             this.showPages();
                         })
@@ -223,17 +220,13 @@
                 },
                 changePage(page) {
                     if (page >= 1 && page <= this.pagination.lastPage) {
-                        console.log("--------------Change Page------------------");
-                        this.currentPage = page;
-                        console.log("current Page : "+this.currentPage);
+                        
+                        this.showPages();
+
                         const total = this.items.length;
-                        console.log("Total : "+total);
                         const lastPage = Math.ceil(total / this.view) || 1;
-                        console.log("Last Page : "+lastPage);
                         const from = (page - 1) * this.view + 1;
-                        console.log("From : "+from);
                         let to = page * this.view;
-                        console.log("To : "+to);
                         if(page === lastPage) {
                             to = total;
                         }
@@ -245,32 +238,34 @@
                         this.pagination.from = from;
                         this.pagination.to = to;
 
-                        this.showPages();
-                        console.log("--------------Change Page------------------");
                     }
                 },
                 showPages() {
-                    console.log("----------------- Show Pages -------------");
                     const pages = [];
-                    let from = this.pagination.currentPage - Math.ceil(this.offset / 2);
+                    let from = this.pagination.currentPage - Math.ceil(this.pagination.offset / 2);
+                    
                     if (from < 1) {
                         from = 1;
                     }
-                    let to = from + this.offset - 1;
+
+                    let to = from + this.pagination.offset - 1;
+                    
                     if (to > this.pagination.lastPage) {
                         to = this.pagination.lastPage;
                     }
+
                     while(from <= to) {
                         pages.push(from);
                         from++;
                     }
-                    this.pages = pages;
-                    console.log(this.pages);
-                    console.log("----------------- Show Pages -------------");
+                    
+                    this.pagination.pages = pages;
+                },
+                clickPage(page){
+                    this.changePage(page);
+                    this.showPages();
                 },
                 search(value){
-                    console.log("----------------- Search -------------");
-                    console.log("Search Value : "+value);
                     if (value.length >= 1) {
                         const options = {
                             shouldSort: true,
@@ -279,11 +274,9 @@
                         };
                         const fuse = new Fuse(this.data, options);
                         this.items = fuse.search(value).map(elem => elem.item);
-                        console.log(this.items);
                     } else {
                         this.items = this.data;
                     }
-                    console.log("----------------- Search -------------");
                 },
                 sort(field, rule) {
                     this.items = this.items.sort(this.compareOnKey(field, rule));
@@ -312,6 +305,19 @@
                             return comparison;
                         }
                     }
+                },
+                listViewBinding(){
+                    const list = [];
+                    for (let index = 0; index < this.listView.length; index++) {
+                        if (this.listView[index] < this.items.length) {
+                            list.push(this.listView[index]);
+                        }
+                    }
+
+                    const itemsLenth = parseInt(JSON.stringify(this.items.length));
+
+                    list.push(itemsLenth);
+                    return list;
                 }
             }
         }

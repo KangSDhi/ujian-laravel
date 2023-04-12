@@ -37,7 +37,7 @@
                                         <div class="align-self-center">Show</div>
                                         <select x-model="view" @change="changeView()"
                                             class="form-select form-select-sm align-self-center">
-                                            <template x-for="(item, index) in listView" :key="index">
+                                            <template x-for="(item, index) in listViewBinding()" :key="index">
                                                 <option :value="item" x-text="item"></option>
                                             </template>
                                             
@@ -111,26 +111,26 @@
                                     </tbody>
                                 </table>
                                 <div class="pagination">
-                                    <div class="page-item" @click.prevent="changePage(1)">
-                                        <span class="page-link" role="button">First</span>
+                                    <div class="page-item" @click.prevent="clickPage(1)">
+                                        <span class="page-link" role="button">Awal</span>
                                     </div>
-                                    <div class="page-item" @click.prevent="changePage(currentPage - 1)">
+                                    <div class="page-item" @click.prevent="clickPage(pagination.currentPage - 1)">
                                         <span class="page-link" role="button">
                                             < 
                                         </span>
                                     </div>
-                                    <template x-for="(item, index) in pages" :key="index">
-                                        <div class="page-item" @click.prevent="changePage(item)">
-                                            <span class="page-link" x-bind:class="{ 'bg-info text-dark': currentPage === item }" x-text="item" role="button"></span>
+                                    <template x-for="(item, index) in pagination.pages" :key="index">
+                                        <div class="page-item" @click.prevent="clickPage(item)">
+                                            <span class="page-link" x-bind:class="{ 'bg-info text-dark': pagination.currentPage === item }" x-text="item" role="button"></span>
                                         </div>
                                     </template>
-                                    <div class="page-item" @click.prevent="changePage(currentPage + 1)">
+                                    <div class="page-item" @click.prevent="clickPage(pagination.currentPage + 1)">
                                         <span class="page-link" role="button">
                                             >
                                         </span>
                                     </div>
-                                    <div class="page-item" @click.prevent="changePage(pagination.lastPage)">
-                                        <span class="page-link" role="button">Last</span>
+                                    <div class="page-item" @click.prevent="clickPage(pagination.lastPage)">
+                                        <span class="page-link" role="button">Akhir</span>
                                     </div>
                                 </div>
                             </div>
@@ -143,29 +143,27 @@
 @endsection
 
 @push('script')
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"
-        integrity="sha256-EIyuZ2Lbxr6vgKrEt8W2waS6D3ReLf9aeoYPZ/maJPI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.js"></script>
     <script>
-        window.dataTable = function() {
+        const dataTable = () => {
             return {
                 token: localStorage.getItem('token'),
                 data: [],
                 items: [],
-                listView: [5, 10, 25, 50, 100],
-                view: 5,
+                listView: [10, 25, 50, 100],
+                view: 10,
                 searchInput: '',
-                pages: [],
-                offset: 5,
                 pagination: {
+                    pages: [],
+                    offset: 5,
                     total: 0,
                     lastPage: 0,
                     perPage: 5,
                     currentPage: 1,
                     from: 1,
-                    to: 1 * 5,
+                    to: 10,
                 },
-                currentPage: 1,
                 sorted: {
                     field: 'name',
                     rule: 'asc'
@@ -186,13 +184,9 @@
 
                     fetchData()
                     .then(data => {
-                        console.log(data);
-                        this.data = data.sort(this.compareOnKey('name', 'asc'));
-                        this.items = data.sort(this.compareOnKey('name', 'asc'));
-                        this.pagination.total = data.length;
-                        this.pagination.lastPage = Math.ceil(data.length / 5);
-                        this.listView.push(data.length);
-                        this.listView = this.listView.sort(function(a, b){return a - b});
+                        this.items = this.data = data.sort(this.compareOnKey('name', 'asc'));
+                        this.pagination.lastPage = Math.ceil(data.length / this.view);
+
                         this.showPages();
                     })
                     .catch(error => {
@@ -245,14 +239,13 @@
                         }
                         const fuse = new Fuse(this.items, options);
                         this.items = fuse.search(value).map(elem => elem.item);
-                        console.log(this.items);
                     } else {
                         this.items = this.data;
                     }
                 },
                 changePage(page) {
                     if (page >= 1 && page <= this.pagination.lastPage) {
-                        this.currentPage = page
+                        this.showPages()
                         const total = this.items.length
                         const lastPage = Math.ceil(total / this.view) || 1
                         const from = (page - 1) * this.view + 1
@@ -266,16 +259,16 @@
                         this.pagination.currentPage = page
                         this.pagination.from = from
                         this.pagination.to = to
-                        this.showPages()
+                        
                     }
                 },
                 showPages() {
                     const pages = []
-                    let from = this.pagination.currentPage - Math.ceil(this.offset / 2)
+                    let from = this.pagination.currentPage - Math.ceil(this.pagination.offset / 2)
                     if (from < 1) {
                         from = 1
                     }
-                    let to = from + this.offset - 1
+                    let to = from + this.pagination.offset - 1
                     if (to > this.pagination.lastPage) {
                         to = this.pagination.lastPage
                     }
@@ -283,11 +276,28 @@
                         pages.push(from)
                         from++
                     }
-                    this.pages = pages
+                    this.pagination.pages = pages
                 },
                 changeView() {
                     this.changePage(1);
                     this.showPages()
+                },
+                clickPage(page){
+                    this.changePage(page)
+                    this.showPages()
+                },
+                listViewBinding(){
+                    const list = [];
+                    for (let index = 0; index < this.listView.length; index++) {
+                        if (this.listView[index] < this.items.length) {
+                            list.push(this.listView[index])
+                        }
+                    }
+
+                    const itemsLenth = parseInt(JSON.stringify(this.items.length))
+
+                    list.push(itemsLenth);
+                    return list;
                 }
             }
         }

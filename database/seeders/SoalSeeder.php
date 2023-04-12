@@ -18,7 +18,527 @@ class SoalSeeder extends Seeder
                 'nama_soal'     => 'Matematika Diskrit',
                 'butir_soal'    => 25,
                 'acak'          => true
-            )
+            ),
+            array(
+                'nama_soal'     => 'Bahasa Indonesia',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Sejarah',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Seni Budaya',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Bahasa Jawa',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Bahasa Inggris',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'PKN',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Matematika Diskrit',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Bahasa Indonesia',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Sejarah',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Seni Budaya',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Bahasa Jawa',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Bahasa Inggris',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'PKN',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Matematika Diskrit',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Bahasa Indonesia',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Sejarah',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Seni Budaya',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Bahasa Jawa',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Bahasa Inggris',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'PKN',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Matematika Diskrit',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Bahasa Indonesia',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Sejarah',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Seni Budaya',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Bahasa Jawa',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Bahasa Inggris',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'PKN',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Matematika Diskrit',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Bahasa Indonesia',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Sejarah',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Seni Budaya',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Bahasa Jawa',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Bahasa Inggris',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'PKN',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Matematika Diskrit',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Bahasa Indonesia',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Sejarah',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Seni Budaya',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Bahasa Jawa',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Bahasa Inggris',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'PKN',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Matematika Diskrit',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Bahasa Indonesia',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Sejarah',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Seni Budaya',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Bahasa Jawa',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Bahasa Inggris',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'PKN',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Matematika Diskrit',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Bahasa Indonesia',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Sejarah',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Seni Budaya',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Bahasa Jawa',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Bahasa Inggris',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'PKN',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Matematika Diskrit',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Bahasa Indonesia',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Sejarah',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Seni Budaya',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Bahasa Jawa',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Bahasa Inggris',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'PKN',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Matematika Diskrit',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Bahasa Indonesia',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Sejarah',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Seni Budaya',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Bahasa Jawa',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Bahasa Inggris',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'PKN',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Matematika Diskrit',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Bahasa Indonesia',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Sejarah',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Seni Budaya',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Bahasa Jawa',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Bahasa Inggris',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'PKN',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Matematika Diskrit',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Bahasa Indonesia',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Sejarah',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Seni Budaya',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Bahasa Jawa',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Bahasa Inggris',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'PKN',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Matematika Diskrit',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Bahasa Indonesia',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Sejarah',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Seni Budaya',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Bahasa Jawa',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Bahasa Inggris',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'PKN',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Matematika Diskrit',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Bahasa Indonesia',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Sejarah',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Seni Budaya',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Bahasa Jawa',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Bahasa Inggris',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'PKN',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Matematika Diskrit',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Bahasa Indonesia',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Sejarah',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Seni Budaya',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Bahasa Jawa',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'Bahasa Inggris',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
+            array(
+                'nama_soal'     => 'PKN',
+                'butir_soal'    => 25,
+                'acak'          => true
+            ),
         );
 
         Soal::insert($data);
