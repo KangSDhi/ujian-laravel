@@ -61,8 +61,7 @@
 @endsection
 
 @push('script')
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"
-        integrity="sha256-EIyuZ2Lbxr6vgKrEt8W2waS6D3ReLf9aeoYPZ/maJPI=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js"></script>
     <script>
         const linkHome = document.getElementById("link-home");

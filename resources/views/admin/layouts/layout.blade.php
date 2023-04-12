@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title')</title>
+    <link rel="icon" type="image/svg+xml" href="{{ asset('assets/img/vector-pen.svg')}}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
@@ -39,7 +40,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a x-data="{ link: '{{ route('admin.get.datatable.soal') }}'+'?token='+ localStorage.getItem('token')  }"
+                            :href="link" class="nav-link" :class="{ 'active': true === {{ request()->routeIs('admin.get.datatable.soal') ? 'true': 'false' }} }">
                                 <i class="bi bi-database text-white"></i>
                                 <span class="ms-1 d-none d-sm-inline text-white">Data Soal</span>
                             </a>
