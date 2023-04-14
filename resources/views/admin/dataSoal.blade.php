@@ -131,27 +131,34 @@
                                         </template>
                                     </tbody>
                                 </table>
-                                <div class="pagination">
-                                    <div class="page-item" @click="clickPage(1)">
-                                        <span class="page-link" role="button">Awal</span>
-                                    </div>
-                                    <div class="page-item" @click="clickPage(pagination.currentPage - 1)">
-                                        <span class="page-link" role="button">
-                                            < </span>
-                                    </div>
-                                    <template x-for="(item, index) in pagination.pages">
-                                        <div class="page-item" @click="clickPage(item)">
-                                            <span class="page-link" :class="{ 'bg-info text-dark': pagination.currentPage === item }" role="button" x-text="item">
-                                            </span>
+                                <div class="d-flex justify-content-between">
+                                    <div class="d-flex">
+                                        <div class="pagination">
+                                            <div class="page-item" @click="clickPage(1)">
+                                                <span class="page-link" role="button">Awal</span>
+                                            </div>
+                                            <div class="page-item" @click="clickPage(pagination.currentPage - 1)">
+                                                <span class="page-link" role="button">
+                                                    < </span>
+                                            </div>
+                                            <template x-for="(item, index) in pagination.pages">
+                                                <div class="page-item" @click="clickPage(item)">
+                                                    <span class="page-link" :class="{ 'bg-info text-dark': pagination.currentPage === item }" role="button" x-text="item">
+                                                    </span>
+                                                </div>
+                                            </template>
+                                            <div class="page-item" @click="clickPage(pagination.currentPage + 1)">
+                                                <span class="page-link" role="button">
+                                                    >
+                                                </span>
+                                            </div>
+                                            <div class="page-item" @click="clickPage(pagination.lastPage)">
+                                                <span class="page-link" role="button">Akhir</span>
+                                            </div>
                                         </div>
-                                    </template>
-                                    <div class="page-item" @click="clickPage(pagination.currentPage + 1)">
-                                        <span class="page-link" role="button">
-                                            >
-                                        </span>
                                     </div>
-                                    <div class="page-item" @click="clickPage(pagination.lastPage)">
-                                        <span class="page-link" role="button">Akhir</span>
+                                    <div class="d-flex align-items-center badge bg-primary">
+                                        <span>Total : <span x-text="pagination.total"></span></span>
                                     </div>
                                 </div>
                             </div>
@@ -181,7 +188,8 @@
                     offset: 5,
                     lastPage: 0,
                     from: 1,
-                    to: 10
+                    to: 10,
+                    total: 0,
                 },
                 sorted: {
                     field: 'nama_soal',
@@ -207,6 +215,8 @@
                     fetchData().then(data => {
                         this.items = this.data = data;
                         this.pagination.lastPage = Math.ceil(data.length / this.view);
+                        this.pagination.total = data.length;
+                        
                         this.showPages();
                     })
                     .catch(error => {

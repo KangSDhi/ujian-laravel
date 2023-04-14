@@ -54,10 +54,10 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a  x-data="{ link: '{{ route('admin.get.datatable.guru') }}'+'?token='+ localStorage.getItem('token')  }" 
-                            x-bind:href="link" class="nav-link" :class="{ 'active': true === {{ request()->routeIs('admin.get.datatable.guru') ? 'true': 'false' }} }">
-                                <i class="bi bi-database text-white"></i>
-                                <span class="ms-1 d-none d-sm-inline text-white">Data Guru</span>
+                            <a  x-data="{ link: '{{ route('admin.get.datatable.pengguna') }}'+'?token='+ localStorage.getItem('token')  }" 
+                            x-bind:href="link" class="nav-link" :class="{ 'active': true === {{ request()->routeIs('admin.get.datatable.pengguna') ? 'true': 'false' }} }">
+                                <i class="bi bi-people-fill text-white"></i>
+                                <span class="ms-1 d-none d-sm-inline text-white">Data Pengguna</span>
                             </a>
                         </li>
                     </ul>

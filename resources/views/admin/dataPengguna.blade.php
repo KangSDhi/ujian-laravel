@@ -11,7 +11,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-12 col-sm-6">
-                        <h1 class="m-0">Data Guru</h1>
+                        <h1 class="m-0">Data Pengguna</h1>
                     </div>
                     <div class="col-12 col-sm-6" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                         <ol class="breadcrumb float-end">
@@ -19,7 +19,7 @@
                                 <a href="#">Aplikasi Ujian</a>
                             </li>
                             <li class="breadcrumb-item active">
-                                Data Guru
+                                Data Pengguna
                             </li>
                         </ol>
                     </div>
@@ -40,7 +40,6 @@
                                             <template x-for="(item, index) in listViewBinding()" :key="index">
                                                 <option :value="item" x-text="item"></option>
                                             </template>
-                                            
                                         </select>
                                     </div>
                                     <div>
@@ -94,6 +93,27 @@
                                                     </div>
                                                 </div>
                                             </th>
+                                            <th scope="col">
+                                                <div class="d-flex gap-1">
+                                                    <span>Role</span>
+                                                    <div class="d-flex flex-column">
+                                                        <svg @click="sort('role', 'asc')" fill="none" fill="none"
+                                                            stroke-linecap="round" stroke-linejoin="round" stroke-width="4"
+                                                            viewBox="0 0 24 24" stroke="currentColor" width="12px"
+                                                            height="12px"
+                                                            x-bind:class="{ 'text-primary': sorted.field === 'role' && sorted.rule === 'asc' }">
+                                                            <path d="M5 15l7-7 7 7"></path>
+                                                        </svg>
+                                                        <svg @click="sort('role', 'desc')" fill="none"
+                                                            stroke-linecap="round" stroke-linejoin="round" stroke-width="4"
+                                                            viewBox="0 0 24 24" stroke="currentColor" width="12px"
+                                                            height="12px"
+                                                            x-bind:class="{'text-primary': sorted.field === 'role' && sorted.rule === 'desc' }">
+                                                            <path d="M19 9l-7 7-7-7"></path>
+                                                        </svg>
+                                                    </div>
+                                                </div>
+                                            </th>
                                             <th scope="col">Aksi</th>
                                         </tr>
                                     </thead>
@@ -103,6 +123,7 @@
                                                 <td x-text="index + 1"></td>
                                                 <td x-text="item.name "></td>
                                                 <td x-text="item.email"></td>
+                                                <td x-text="item.role"></td>
                                                 <td x-data="{button: '<a href=\'#?token='+token+'\' class=\'btn btn-info mx-2\'>Edit</a><a href=\'#?token='+token+'\' class=\'btn btn-danger\'>Hapus</a>'}">
                                                     <div x-html="button"></div>
                                                 </td>
@@ -110,29 +131,37 @@
                                         </template>
                                     </tbody>
                                 </table>
-                                <div class="pagination">
-                                    <div class="page-item" @click.prevent="clickPage(1)">
-                                        <span class="page-link" role="button">Awal</span>
-                                    </div>
-                                    <div class="page-item" @click.prevent="clickPage(pagination.currentPage - 1)">
-                                        <span class="page-link" role="button">
-                                            < 
-                                        </span>
-                                    </div>
-                                    <template x-for="(item, index) in pagination.pages" :key="index">
-                                        <div class="page-item" @click.prevent="clickPage(item)">
-                                            <span class="page-link" x-bind:class="{ 'bg-info text-dark': pagination.currentPage === item }" x-text="item" role="button"></span>
+                                <div class="d-flex justify-content-between">
+                                    <div class="d-flex">
+                                        <div class="pagination">
+                                            <div class="page-item" @click.prevent="clickPage(1)">
+                                                <span class="page-link" role="button">Awal</span>
+                                            </div>
+                                            <div class="page-item" @click.prevent="clickPage(pagination.currentPage - 1)">
+                                                <span class="page-link" role="button">
+                                                    < 
+                                                </span>
+                                            </div>
+                                            <template x-for="(item, index) in pagination.pages" :key="index">
+                                                <div class="page-item" @click.prevent="clickPage(item)">
+                                                    <span class="page-link" x-bind:class="{ 'bg-info text-dark': pagination.currentPage === item }" x-text="item" role="button"></span>
+                                                </div>
+                                            </template>
+                                            <div class="page-item" @click.prevent="clickPage(pagination.currentPage + 1)">
+                                                <span class="page-link" role="button">
+                                                    >
+                                                </span>
+                                            </div>
+                                            <div class="page-item" @click.prevent="clickPage(pagination.lastPage)">
+                                                <span class="page-link" role="button">Akhir</span>
+                                            </div>
                                         </div>
-                                    </template>
-                                    <div class="page-item" @click.prevent="clickPage(pagination.currentPage + 1)">
-                                        <span class="page-link" role="button">
-                                            >
-                                        </span>
                                     </div>
-                                    <div class="page-item" @click.prevent="clickPage(pagination.lastPage)">
-                                        <span class="page-link" role="button">Akhir</span>
+                                    <div class="d-flex align-items-center badge bg-primary">
+                                        <span>Total : <span x-text="pagination.total"></span></span>
                                     </div>
                                 </div>
+                                
                             </div>
                         </div>
                     </div>
@@ -171,7 +200,7 @@
                 initData() {
                     async function fetchData() {
                         try {
-                            const {data} = await axios.post('{{ route('admin.post.data.guru') }}', {}, {
+                            const {data} = await axios.post('{{ route('admin.post.data.pengguna') }}', {}, {
                                 headers: {
                                     'Authorization': 'Bearer ' + localStorage.getItem("token")
                                 }
@@ -186,6 +215,7 @@
                     .then(data => {
                         this.items = this.data = data.sort(this.compareOnKey('name', 'asc'));
                         this.pagination.lastPage = Math.ceil(data.length / this.view);
+                        this.pagination.total = data.length;
 
                         this.showPages();
                     })
@@ -195,7 +225,7 @@
                 },
                 compareOnKey(key, rule) {
                     return function(a, b) {
-                        if (key === 'name' || key === 'email') {
+                        if (key === 'name' || key === 'email' || key === 'role') {
                             let comparison = 0
                             const fieldA = a[key].toUpperCase()
                             const fieldB = b[key].toUpperCase()
@@ -234,11 +264,12 @@
                     if (value.length >= 1) {
                         const options = {
                             shouldSort: true,
-                            keys: ['name', 'email'],
+                            keys: ['name', 'email', 'role'],
                             threshold: 0
                         }
                         const fuse = new Fuse(this.items, options);
-                        this.items = fuse.search(value).map(elem => elem.item);
+                        const search = fuse.search(value).map(elem => elem.item);
+                        this.items = search;
                     } else {
                         this.items = this.data;
                     }
