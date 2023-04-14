@@ -23,11 +23,11 @@ class DashboardController extends Controller
         return view("admin.dashboard", $data);
     }
 
-    public function guru()
+    public function pengguna()
     {
-        $data['title'] = "Data Guru";
+        $data['title'] = "Data Pengguna";
         $data['user'] = $this->user;
-        return view("admin.dataGuru", $data);
+        return view("admin.dataPengguna", $data);
     }
 
     public function siswa()

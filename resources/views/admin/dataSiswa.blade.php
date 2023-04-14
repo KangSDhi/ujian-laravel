@@ -126,27 +126,34 @@
                                         </template>
                                     </tbody>
                                 </table>
-                                <div class="pagination">
-                                    <div class="page-item" @click.prevent="clickPage(1)">
-                                        <span class="page-link" role="button">Awal</span>
-                                    </div>
-                                    <div class="page-item" @click.prevent="clickPage(pagination.currentPage - 1)">
-                                        <span class="page-link" role="button">
-                                            < 
-                                        </span>
-                                    </div>
-                                    <template x-for="(item, index) in pagination.pages" :key="index">
-                                        <div class="page-item" @click.prevent="clickPage(item)">
-                                            <span class="page-link" x-bind:class="{ 'bg-info text-dark': pagination.currentPage === item }" x-text="item" role="button"></span>
+                                <div class="d-flex justify-content-between">
+                                    <div class="d-flex">
+                                        <div class="pagination">
+                                            <div class="page-item" @click.prevent="clickPage(1)">
+                                                <span class="page-link" role="button">Awal</span>
+                                            </div>
+                                            <div class="page-item" @click.prevent="clickPage(pagination.currentPage - 1)">
+                                                <span class="page-link" role="button">
+                                                    < 
+                                                </span>
+                                            </div>
+                                            <template x-for="(item, index) in pagination.pages" :key="index">
+                                                <div class="page-item" @click.prevent="clickPage(item)">
+                                                    <span class="page-link" x-bind:class="{ 'bg-info text-dark': pagination.currentPage === item }" x-text="item" role="button"></span>
+                                                </div>
+                                            </template>
+                                            <div class="page-item" @click.prevent="clickPage(pagination.currentPage + 1)">
+                                                <span class="page-link" role="button">
+                                                    >
+                                                </span>
+                                            </div>
+                                            <div class="page-item" @click.prevent="clickPage(pagination.lastPage)">
+                                                <span class="page-link" role="button">Akhir</span>
+                                            </div>
                                         </div>
-                                    </template>
-                                    <div class="page-item" @click.prevent="clickPage(pagination.currentPage + 1)">
-                                        <span class="page-link" role="button">
-                                            >
-                                        </span>
                                     </div>
-                                    <div class="page-item" @click.prevent="clickPage(pagination.lastPage)">
-                                        <span class="page-link" role="button">Akhir</span>
+                                    <div class="d-flex align-items-center badge bg-primary">
+                                        <span>Total : <span x-text="pagination.total"></span></span>
                                     </div>
                                 </div>
                             </div>
@@ -204,6 +211,7 @@
                         .then(data => {
                             this.items = this.data = data;
                             this.pagination.lastPage = Math.ceil(data.length / this.view);
+                            this.pagination.total = data.length;
 
                             this.showPages();
                         })
