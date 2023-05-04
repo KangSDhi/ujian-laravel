@@ -8,7 +8,7 @@ services:
             context: .
             dockerfile: Dockerfile
 
-        container_name: simulasi-laravel-app
+        container_name: ujian-laravel-app
         working_dir: /var/www
 
         volumes:
@@ -20,7 +20,7 @@ services:
     # Nginx - Service
     webserver:
         image: nginx:latest
-        container_name: simulasi-laravel-webserver
+        container_name: ujian-laravel-webserver
 
         ports:
             - 8081:90
@@ -35,7 +35,7 @@ services:
     # MariaDB - Service
     db:
         image: mariadb:10.7.8
-        container_name: simulasi-laravel-db
+        container_name: ujian-laravel-db
 
         ports:
             - 3307:3306
@@ -54,7 +54,7 @@ services:
 
     phpmyadmin:
         image: phpmyadmin:latest
-        container_name: simulasi-laravel-pma
+        container_name: ujian-laravel-pma
         depends_on:
             - db
         environment:
