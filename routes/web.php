@@ -39,4 +39,8 @@ Route::middleware(['auth:api', 'cekrole.admin'])->prefix('admin')->name('admin.'
     Route::post('/soal/data', [SoalAdmin::class, 'getAllSoal'])->name('post.data.soal');
     Route::get('/pengguna', [DashboardAdmin::class, 'pengguna'])->name('get.datatable.pengguna');
     Route::post('/pengguna/data', [PenggunaAdmin::class, 'getAllPengguna'])->name('post.data.pengguna');
+    Route::post('/pengguna/store', [PenggunaAdmin::class, 'store'])->name('post.store.pengguna');
+    Route::get('/pengguna/get/{email}', [PenggunaAdmin::class, 'getPengguna'])->name('get.pengguna');
+    Route::post('/pengguna/update', [PenggunaAdmin::class, 'update'])->name('post.update.pengguna');
+    Route::get('/pengguna/delete/{email}', [PenggunaAdmin::class, 'delete'])->name('get.delete.pengguna');
 });

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\UsersRole;
 
 class DashboardController extends Controller
 {
@@ -27,6 +28,9 @@ class DashboardController extends Controller
     {
         $data['title'] = "Data Pengguna";
         $data['user'] = $this->user;
+        $data['dataUsersRole'] = UsersRole::where('role', '!=', 'SISWA')
+            ->orderBy('role', 'desc')
+            ->get();
         return view("admin.dataPengguna", $data);
     }
 
