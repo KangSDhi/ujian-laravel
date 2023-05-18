@@ -15,7 +15,7 @@
 </head>
 
 <body>
-    <div class="container-fluid">
+    <div x-data="baseLayout()" class="container-fluid">
         <div class="row flex-nowrap">
             <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
                 <div class="d-flex flex-column flex-shrink-0 p-3 text-white min-vh-100">
@@ -75,7 +75,7 @@
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="#">Keluar</a></li>
+                            <li><a class="dropdown-item" @click="logout()">Keluar</a></li>
                         </ul>
                     </div>
                 </div>
@@ -89,8 +89,21 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"
         integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous">
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
-
+        const baseLayout = () => {
+            return {
+                logout(){
+                    if (confirm("Apakah Anda Ingin Keluar?")) {
+                        const token = localStorage.getItem("token");
+                        localStorage.removeItem("token");
+                        window.location.href = "{{ url('/admin/logout') }}" + "/" + "?token=" + token;
+                    }else{
+                        alert("Batal");
+                    }
+                }
+            }
+        }
     </script>
     @stack('script')
 </body>

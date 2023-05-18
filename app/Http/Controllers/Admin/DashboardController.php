@@ -11,10 +11,12 @@ class DashboardController extends Controller
     private $user;
 
     public function __construct(){
-        $user = auth('api')->user()
-            ->select('name', 'email')
-            ->first();
-        $this->user = $user;
+        if (!auth('jwt')->guest()) {
+            $user = auth('jwt')->user()
+                ->select('name', 'email')
+                ->first();
+            $this->user = $user;
+        }
     }
 
     public function index()
