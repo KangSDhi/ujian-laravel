@@ -71,4 +71,35 @@ class AuthController extends Controller
             'token'     => $token
         ], 200);
     }
+
+    public function logout()
+    {
+        auth('jwt')->logout();
+
+        return redirect()->route('get.login');
+    }
+
+    public function checkLogin(){
+        if (auth('jwt')->guest()) {
+            return response()->json([
+                'guest' => true
+            ]);
+        }else{
+            $roleId = auth('jwt')->user()->role_id;
+            $link;
+            if ($roleId == 1) {
+                $link = route('admin.get.dashboard');
+            }else if($roleId == 2){
+                $link = "GURU";
+            }else{
+                $link = "SISWA";
+            }
+
+
+            return response()->json([
+                'guest' => false,
+                'link'  => $link
+            ]);
+        }
+    }
 }

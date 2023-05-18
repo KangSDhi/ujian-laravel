@@ -7,6 +7,7 @@
     <title>@yield('title')</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     @stack('css')
 </head>
 <body>
@@ -25,11 +26,34 @@
             </div>
         </nav>
     </header>
-    <main>
+    <main x-data="baseLayout()" x-init="initFunction()">
         @yield('content')
     </main>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        const baseLayout = () => {
+            return {
+                initFunction(){
+                    const token = localStorage.getItem('token');
+                    if (token != null) {
+                        axios.get('{{ url("/checkLogin") }}', {
+                            headers: {
+                                'Authorization': 'Bearer '+token
+                            }
+                        })
+                        .then(({ data }) => {
+                            window.location.href = data.link + "?token=" + token;
+                        })
+                        .catch((error) => {
+                            console.error(error);
+                        });
+                    }
+                }
+            }
+        }
+    </script>
     @stack('script')
 </body>
 </html>

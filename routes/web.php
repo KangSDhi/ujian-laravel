@@ -31,7 +31,11 @@ Route::middleware(['guest'])->group(function(){
     Route::get('/accessDenied', [Error::class, 'accessDenied'])->name('get.accessDenied');
 });
 
-Route::middleware(['auth:api', 'cekrole.admin'])->prefix('admin')->name('admin.')->group(function(){
+Route::middleware(['auth:jwt'])->group(function(){
+    Route::get('/checkLogin', [Auth::class, 'checkLogin']);
+});
+
+Route::middleware(['auth:jwt', 'cekrole.admin'])->prefix('admin')->name('admin.')->group(function(){
     Route::get('/dashboard', [DashboardAdmin::class, 'index'])->name('get.dashboard');
     Route::get('/siswa', [DashboardAdmin::class, 'siswa'])->name('get.datatable.siswa');
     Route::post('/siswa/data', [SiswaAdmin::class, 'getAllSiswa'])->name('post.data.siswa');
@@ -43,4 +47,5 @@ Route::middleware(['auth:api', 'cekrole.admin'])->prefix('admin')->name('admin.'
     Route::get('/pengguna/get/{email}', [PenggunaAdmin::class, 'getPengguna'])->name('get.pengguna');
     Route::post('/pengguna/update', [PenggunaAdmin::class, 'update'])->name('post.update.pengguna');
     Route::get('/pengguna/delete/{email}', [PenggunaAdmin::class, 'delete'])->name('get.delete.pengguna');
+    Route::get('/logout', [Auth::class, 'logout'])->name('get.logout');
 });
