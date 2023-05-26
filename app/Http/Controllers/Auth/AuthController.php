@@ -95,7 +95,6 @@ class AuthController extends Controller
                 $link = "SISWA";
             }
 
-
             return response()->json([
                 'guest' => false,
                 'link'  => $link
