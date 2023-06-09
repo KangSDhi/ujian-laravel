@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\GuruController as GuruAdmin;
 use App\Http\Controllers\Admin\SiswaController as SiswaAdmin;
 use App\Http\Controllers\Admin\SoalController as SoalAdmin;
 use App\Http\Controllers\Admin\PenggunaController as PenggunaAdmin;
+use App\Http\Controllers\Siswa\DashboardController as DashboardSiswa;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,4 +49,8 @@ Route::middleware(['auth:jwt', 'cekrole.admin'])->prefix('admin')->name('admin.'
     Route::post('/pengguna/update', [PenggunaAdmin::class, 'update'])->name('post.update.pengguna');
     Route::get('/pengguna/delete/{email}', [PenggunaAdmin::class, 'delete'])->name('get.delete.pengguna');
     Route::get('/logout', [Auth::class, 'logout'])->name('get.logout');
+});
+
+Route::middleware(['auth:jwt', 'cekrole.siswa'])->prefix('siswa')->name('siswa.')->group(function(){
+    Route::get('/dashboard', [DashboardSiswa::class, 'index'])->name('get.dashboard');
 });
