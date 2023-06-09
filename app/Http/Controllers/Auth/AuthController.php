@@ -60,7 +60,7 @@ class AuthController extends Controller
             $link = "dashboardguru";
             $data = new GuruResource($user);
         } else {
-            $link = "dashboardsiswa";
+            $link = route('siswa.get.dashboard');
             $data = new SiswaResource($user);
         }
 
@@ -92,7 +92,7 @@ class AuthController extends Controller
             }else if($roleId == 2){
                 $link = "GURU";
             }else{
-                $link = "SISWA";
+                $link = route('siswa.get.dashboard');
             }
 
             return response()->json([
