@@ -7,10 +7,11 @@ services:
         build:
             context: .
             dockerfile: Dockerfile
-
+        ports:
+            - 8081:8000
         container_name: ujian-laravel-app
         working_dir: /var/www
-
+        command: rr serve -c .rr.local.yaml
         volumes:
             - ./:/var/www
             
@@ -18,19 +19,34 @@ services:
             - simulasi-laravel-network
 
     # Nginx - Service
-    webserver:
-        image: nginx:latest
-        container_name: ujian-laravel-webserver
+    # webserver:
+    #     image: nginx:latest
+    #     container_name: ujian-laravel-webserver
 
-        ports:
-            - 8081:90
+    #     ports:
+    #         - 8081:90
 
-        volumes:
-            - ./:/var/www
-            - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    #     volumes:
+    #         - ./:/var/www
+    #         - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
 
-        networks:
-            - simulasi-laravel-network
+    #     networks:
+    #         - simulasi-laravel-network
+
+    # Nginx-RR (Error) - Service
+    # webserver:
+    #     image: nginx:stable-alpine
+    #     container_name: ujian-laravel-webserver
+
+    #     ports:
+    #         - 8000:80
+
+    #     volumes:
+            
+    #         - ./docker/rr-nginx/rr.conf:/etc/nginx/conf.d/default.conf
+
+    #     networks:
+    #         - simulasi-laravel-network
 
     # MariaDB - Service
     db:

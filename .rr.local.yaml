@@ -1,0 +1,31 @@
+version: "3"
+
+rpc:
+  listen: tcp://127.0.0.1:6001
+
+http:
+  address: 0.0.0.0:8000
+  fcgi:
+    address: 0.0.0.0:9000
+  pool:
+    num_workers: 10
+    max_jobs: 500
+    supervisor:
+      exec_ttl: 30s
+  static:
+    dir: public
+  middleware: [ "static" ]
+
+
+server:
+  command: "php ./vendor/bin/roadrunner-worker"
+
+  env:
+    - APP_ENV: production
+    - APP_BASE_PATH: "/var/www"
+    - LARAVEL_OCTANE: "1"
+
+logs:
+  encoding: json
+  level: error
+  mode: production

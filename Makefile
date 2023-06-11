@@ -1,5 +1,8 @@
 SHELL = /bin/bash
 
+build:
+	docker compose build --no-cache
+
 init:
 	docker compose up -d app \
 	&& docker compose up -d db \
