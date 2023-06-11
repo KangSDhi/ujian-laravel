@@ -15,7 +15,7 @@ use App\Http\Controllers\API\Auth\AuthController as Auth;
 |
 */
 
-Route::middleware(['throttle:100,1'])->group(function(){
-    Route::post('/login', [Auth::class, 'login']);
-    Route::get('/check_auth', [Auth::class, 'checkAuth']);
-});
+// Route::middleware(['throttle:100,1'])->group(function(){
+Route::post('/login', [Auth::class, 'login']);
+Route::get('/check_auth', [Auth::class, 'checkAuth']);
+// });

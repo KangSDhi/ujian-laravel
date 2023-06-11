@@ -1,4 +1,7 @@
+FROM ghcr.io/roadrunner-server/roadrunner:2023.1.4 AS roadrunner
 FROM php:8.2.3-fpm
+
+COPY --from=roadrunner /usr/bin/rr /usr/local/bin/rr
 
 COPY composer.lock composer.json /var/www/
 
@@ -27,7 +30,7 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 # Install Exstension
 RUN docker-php-ext-install pdo_mysql mbstring zip exif pcntl
 RUN docker-php-ext-configure gd --enable-gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/
-RUN docker-php-ext-install gd
+RUN docker-php-ext-install gd sockets
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
@@ -46,5 +49,5 @@ RUN chown -R www-data:www-data /var/www
 # Change Current User to www
 USER www
 
-EXPOSE 9000
-CMD ["php-fpm"]
+# EXPOSE 9000 //nginx
+# CMD ["php-fpm"] //nginx
