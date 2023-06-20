@@ -11,7 +11,8 @@ services:
             - 8081:8000
         container_name: ujian-laravel-app
         working_dir: /var/www
-        command: rr serve -c .rr.local.yaml
+        # command: php artisan octane:start --host=0.0.0.0
+        command: rr serve -c .rr.yaml
         volumes:
             - ./:/var/www
             

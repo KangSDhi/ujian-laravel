@@ -3,7 +3,7 @@ FROM php:8.2.3-fpm
 
 COPY --from=roadrunner /usr/bin/rr /usr/local/bin/rr
 
-COPY composer.lock composer.json /var/www/
+# COPY composer.lock composer.json /var/www/
 
 WORKDIR /var/www
 
@@ -32,9 +32,6 @@ RUN docker-php-ext-install pdo_mysql mbstring zip exif pcntl
 RUN docker-php-ext-configure gd --enable-gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/
 RUN docker-php-ext-install gd sockets
 
-# Install Composer
-# RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
 # Add user for laravel
 RUN groupadd -g 1000 www
 RUN useradd -u 1000 -ms /bin/bash -g www www
@@ -47,16 +44,15 @@ COPY --chown=www:www . /var/www/
 RUN chown -R www-data:www-data /var/www
 RUN chmod -R 777 /var/www
 
-
 # Change Current User to www
 USER www
 
 # Install Composer
+# ENV COMPOSER_ALLOW_SUPERUSER=1
 COPY --from=composer:2.3 /usr/bin/composer /usr/bin/composer
 RUN composer install --optimize-autoloader --no-dev
 
-# RUN chmod -R 755 /var/www
+# Deployment steps
+ENTRYPOINT [ "/var/www/docker/build/run.sh" ]
 
-# NGINX
-# EXPOSE 9000
-# CMD ["php-fpm"]
+EXPOSE 8000

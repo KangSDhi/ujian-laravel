@@ -12,9 +12,7 @@ class DashboardController extends Controller
 
     public function __construct(){
         if (!auth('jwt')->guest()) {
-            $user = auth('jwt')->user()
-                ->select('name', 'email')
-                ->first();
+            $user = auth('jwt')->user();
             $this->user = $user;
         }
     }
