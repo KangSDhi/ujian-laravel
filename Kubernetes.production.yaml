@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: laravel-ujian-kubernetes
+spec:
+  selector:
+    matchLabels:
+      run: laravel-ujian-kubernetes
+  template:
+    metadata:
+      labels:
+        run: laravel-ujian-kubernetes
+    spec:
+      containers:
+        - name: laravel-ujian
+          image: kangstek/ujian-laravel
+          ports:
+            - containerPort: 8000

@@ -38,13 +38,19 @@
                                 <span class="ms-1 d-none d-sm-inline text-white">Beranda</span>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="bi bi-journal text-white"></i>
+                                <span class="ms-1 d-none d-sm-inline text-white">Daftar Soal</span>
+                            </a>
+                        </li>
                     </ul>
                     <hr>
                     <div class="dropdown pb-4">
                         <a href="#"
                             class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
                             id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
-                            <span class="d-none d-sm-inline mx-1">Akito</span>
+                            <span class="d-none d-sm-inline mx-1">{{ $user->name }}</span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser">
                             <li><a href="#" class="dropdown-item">Profil</a></li>
@@ -72,7 +78,13 @@
         const baseLayout = () => {
             return {
                 logout() {
-                    alert("Pak!!!!!!!!!!!!!!!!!!!!!");
+                    if (confirm("Apakah Anda Ingin Keluar?")) {
+                        const token = localStorage.getItem("token");
+                        localStorage.removeItem("token");
+                        window.location.href = "{{ url('/siswa/logout') }}" + "/?token=" + token;
+                    } else {
+                        alert("Batal");
+                    }
                 }
             }
         }

@@ -53,4 +53,5 @@ Route::middleware(['auth:jwt', 'cekrole.admin'])->prefix('admin')->name('admin.'
 
 Route::middleware(['auth:jwt', 'cekrole.siswa'])->prefix('siswa')->name('siswa.')->group(function(){
     Route::get('/dashboard', [DashboardSiswa::class, 'index'])->name('get.dashboard');
+    Route::get('/logout', [Auth::class, 'logout'], 'logout')->name('get.logout');
 });
