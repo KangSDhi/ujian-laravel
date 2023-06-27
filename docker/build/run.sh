@@ -2,4 +2,4 @@
 
 cd /var/www
 
-rr serve -c .rr.yaml
+rr serve -c .rr.deployment.yaml

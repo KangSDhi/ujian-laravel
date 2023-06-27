@@ -32,14 +32,15 @@
                     <hr>
                     <ul class="nav nav-pills flex-column mb-auto">
                         <li class="nav-item">
-                            <a x-data="{ url: '{{ route('siswa.get.dashboard') }}' + '?token=' + localStorage.getItem('token') }" :href="link" class="nav-link"
+                            <a x-data="{ url: '{{ route('siswa.get.dashboard') }}' + '?token=' + localStorage.getItem('token') }" :href="url" class="nav-link"
                                 :class="{ 'active': true == {{ request()->routeIs('siswa.get.dashboard') ? 'true' : 'false' }} }">
                                 <i class="bi bi-house text-white"></i>
                                 <span class="ms-1 d-none d-sm-inline text-white">Beranda</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a x-data="{ url: '{{ route('siswa.get.soal') }}' + '?token=' + localStorage.getItem('token') }" :href="url" class="nav-link"
+                                :class="{ 'active': true == {{ request()->routeIs('siswa.get.soal') ? 'true' : 'false' }} }">
                                 <i class="bi bi-journal text-white"></i>
                                 <span class="ms-1 d-none d-sm-inline text-white">Daftar Soal</span>
                             </a>
@@ -89,6 +90,7 @@
             }
         }
     </script>
+    @stack('script')
 </body>
 
 </html>
