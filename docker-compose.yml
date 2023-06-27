@@ -12,7 +12,7 @@ services:
         container_name: ujian-laravel-app
         working_dir: /var/www
         # command: php artisan octane:start --host=0.0.0.0
-        command: rr serve -c .rr.yaml
+        command: rr serve -c .rr.development.yaml
         volumes:
             - ./:/var/www
             
