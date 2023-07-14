@@ -77,7 +77,8 @@
 
             axios.post('{{ route('post.login') }}', {
                     emailAtauNISN: emailAtauNISN,
-                    password: password
+                    password: password,
+                    _token: "{{ csrf_token() }}",
             })
             .then(function({ data }) {
                 localStorage.setItem("token", data.token);

@@ -19,7 +19,7 @@
                                 <div class="card-body">
                                     <h6 class="card-text">Mulai : <span x-text="item.waktu_mulai"></span></h6>
                                     <h6 class="card-text">Durasi : <span x-text="item.durasi"></span></h6>
-                                    <a href="#" class="btn btn-primary">Mulai</a>
+                                    <a x-data="{ url: '{{ route('siswa.get.ujian') }}'+'?idSoal='+item.id+'&noSoal=1&token='+localStorage.getItem('token') }" :href="url" class="btn btn-primary">Mulai</a>
                                 </div>
                             </div>
                         </div>
