@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             UsersRoleSeeder::class,
             UsersSeeder::class,
             SoalSeeder::class,
+            BankSoalSeeder::class,
         ]);
 
         \App\Models\User::factory(200)->create();

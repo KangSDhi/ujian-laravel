@@ -30,7 +30,7 @@ class UsersSeeder extends Seeder
                 'name'          => 'Arya nada',
                 'email'         => 'aryanada@gmail.com',
                 'password'      => bcrypt('qwerty'),
-                'kelas_id'      => 45,
+                'kelas_id'      => 28,
                 'NISN'          => '00477584',
                 'role_id'       => 3,
                 'created_at'    => date("Y-m-d H:i:s"),

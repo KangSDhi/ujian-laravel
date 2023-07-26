@@ -16,12 +16,12 @@ return new class extends Migration
             $table->unsignedBigInteger('soal_id');
             $table->enum('tipe', ['pilihan_ganda', 'essay']);
             $table->longtext('pertanyaan');
-            $table->string('pilihan_a');
-            $table->string('pilihan_b');
-            $table->string('pilihan_c');
-            $table->string('pilihan_d');
-            $table->string('pilihan_e');
-            $table->string('isian_essay');
+            $table->longtext('pilihan_a');
+            $table->longtext('pilihan_b');
+            $table->longtext('pilihan_c');
+            $table->longtext('pilihan_d');
+            $table->longtext('pilihan_e');
+            $table->longtext('isian_essay')->nullable();
             $table->unsignedInteger('nilai_a');
             $table->unsignedInteger('nilai_b');
             $table->unsignedInteger('nilai_c');

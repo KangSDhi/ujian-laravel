@@ -20,7 +20,7 @@ class SoalController extends Controller
          * from soal where tingkat_ref = 'XII') as base where jurusan_id is null or jurusan_id = 6
          */
         $getSoal = DB::table(function ($query) use ($getKelas, $getToday) {
-            $query->select(DB::raw('nama_soal, tingkat_ref, jurusan_id, tipe_soal, DATE_FORMAT(waktu_mulai, "%d-%b-%Y (%H:%i)") as waktu_mulai, durasi'))
+            $query->select(DB::raw('soal.id, nama_soal, tingkat_ref, jurusan_id, tipe_soal, waktu_mulai, durasi'))
                 ->from('soal')
                 ->where('tingkat_ref', '=', $getKelas->tingkat)
                 ->where('waktu_mulai', 'LIKE', $getToday.'%');
@@ -30,6 +30,7 @@ class SoalController extends Controller
         })
         ->orderBy('waktu_mulai', 'asc')
         ->get();
+        // dd($getSoal);
         return response()->json([
             'success'   => true,
             'message'   => 'Data Daftar Soal',
