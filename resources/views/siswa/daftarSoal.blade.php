@@ -17,9 +17,20 @@
                                     <h5 class="card-title" x-text="item.nama_soal"></h4>
                                 </div>
                                 <div class="card-body">
-                                    <h6 class="card-text">Mulai : <span x-text="item.waktu_mulai"></span></h6>
+                                    <h6 class="card-text">Mulai : <span x-text="formatWaktuMulai(item.waktu_mulai)"></span></h6>
                                     <h6 class="card-text">Durasi : <span x-text="item.durasi"></span></h6>
-                                    <a x-data="{ url: '{{ route('siswa.get.ujian') }}'+'?idSoal='+item.id+'&noSoal=1&token='+localStorage.getItem('token') }" :href="url" class="btn btn-primary">Mulai</a>
+                                    <template x-if="Date.now() >= Date.parse(item.waktu_mulai)">
+                                        <a x-data="{ url: '{{ route('siswa.get.ujian') }}'+'?idSoal='+item.id+'&noSoal=1&token='+localStorage.getItem('token') }" :href="url" class="btn btn-primary">
+                                            <i class="bi bi-play-fill"></i>
+                                            Mulai
+                                        </a>
+                                    </template>
+                                    <template x-if="Date.now() <= Date.parse(item.waktu_mulai)">
+                                        <button class="btn btn-secondary" disabled>
+                                            <i class="bi bi-lock-fill"></i>
+                                            Belum Mulai
+                                        </button>
+                                    </template>
                                 </div>
                             </div>
                         </div>
@@ -60,6 +71,21 @@
                         .catch(error => {
                             console.error(error);
                         })
+                },
+                formatWaktuMulai(waktu_mulai){
+                    const waktu_mulai_parse = new Date(waktu_mulai);
+                    const year = waktu_mulai_parse.getFullYear();
+                    const month = waktu_mulai_parse.getMonth() + 1;
+                    const date = waktu_mulai_parse.getDate();
+                    const hour = waktu_mulai_parse.getHours();
+                    const minute = waktu_mulai_parse.getMinutes();
+                    return `${this.addZero(date)}/${this.addZero(month)}/${year} (${this.addZero(hour)}:${this.addZero(minute)})`;
+                },
+                addZero(i){
+                    if (i < 10) {
+                        i = "0" + i;
+                    }
+                    return i;
                 }
             }
         }

@@ -16,6 +16,22 @@ http:
     dir: public
   middleware: [ "static" ]
 
+# reload can reset rr servers when files change
+reload:
+  # refresh interval (default 1s)
+  interval: 1s
+
+  # file extensions to watch, defaults to [.php]
+  patterns: [".php"]
+
+  # list of services to watch
+  services:
+    http:
+      # list of dirs, "" root
+      dirs: ["/var/www"]
+
+      # include sub directories
+      recursive: true
 
 server:
   command: "php ./vendor/bin/roadrunner-worker"

@@ -38,6 +38,15 @@ class UjianController extends Controller
         $indexSoal = $noSoal - 1;
         
         $getSoal = Soal::where('id', $idSoal)->first();
+
+        $sizeBankSoal = BankSoal::where('soal_id', $idSoal)->count();
+
+        if ($sizeBankSoal <= 0) {
+            return response()->json([
+                'message'   => 'Bank Soal Kosong!'
+            ], 404);
+        }
+
         $this->generateUjian($getSoal);
 
         $getUjian = Ujian::where('soal_id', $idSoal)
@@ -51,7 +60,8 @@ class UjianController extends Controller
         
         return response()->json([
             'pertanyaan'    => $getBankSoal->pertanyaan,
-            'data_ujian'    => $listJawaban
+            'data_ujian'    => $listJawaban,
+            'ujian_selesai' => $getUjian->waktu_selesai,
         ], 200);
     }
 
@@ -133,7 +143,7 @@ class UjianController extends Controller
             $pilihan_pg = array($item->pilihan_a, $item->pilihan_b, $item->pilihan_c, $item->pilihan_d, $item->pilihan_e);
             $this->randomPG($pilihan_pg);
             $data[$key]['id_bank'] = $item->id;
-            $data[$key]['jawaban_pg'] = '';
+            $data[$key]['jawaban_pg'] = null;
             $data[$key]['pilihan_pg'] = $pilihan_pg;
         }
 

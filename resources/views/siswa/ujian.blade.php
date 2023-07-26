@@ -44,9 +44,9 @@
                 </div>
                 <div class="col-sm-4">
                     <div class="d-flex timer">
-                        <h1>01</h1>
-                        <h1>01</h1>
-                        <h1>01</h1>
+                        <h1 x-text="time().hours"></h1>
+                        <h1 x-text="time().minutes"></h1>
+                        <h1 x-text="time().seconds"></h1>
                     </div>
                     <div class="card card-primary card-outline">
                         <div class="card-header">
@@ -56,13 +56,34 @@
                             <div class="d-grid gap-2 d-md-flex">
                                 <template x-for="(item, index) in dataUjian">
                                     <button class="btn btn-sm"
-                                        :class="{ 'btn-outline-primary': index + 1 == noSoal, 'btn-secondary': item
-                                                .jawaban_pg == '' && index + 1 != noSoal, 'btn-primary': item
-                                                .jawaban_pg != '' && index + 1 != noSoal }"
+                                        :class="{
+                                            'btn-outline-primary': index + 1 == noSoal,
+                                            'btn-secondary': item
+                                                .jawaban_pg == null && index + 1 != noSoal,
+                                            'btn-primary': item
+                                                .jawaban_pg != null && index + 1 != noSoal
+                                        }"
                                         @click="changePage(index+1)">
                                         <span x-text="index+1"></span>
                                     </button>
                                 </template>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="modal" tabindex="-1" id="error-modal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" x-text="errorTitle"></h5>
+                            </div>
+                            <div class="modal-body">
+                                <p x-text="errorMessage"></p>
+                            </div>
+                            <div class="modal-footer">
+                                <a :href="errorRedirect" class="btn btn-primary">Kembali</a>
                             </div>
                         </div>
                     </div>
@@ -88,6 +109,11 @@
                 pilihanGanda: [],
                 dataUjian: [],
                 token: localStorage.getItem('token'),
+                expiry: '',
+                remaining: null,
+                errorTitle: '',
+                errorMessage: '',
+                errorRedirect: '',
                 initData() {
                     const urlParams = new URLSearchParams(location.search);
                     this.idSoal = urlParams.get('idSoal');
@@ -103,16 +129,78 @@
                         .then(({
                             data
                         }) => {
+                            console.log(data);
                             this.pertanyaan = data.pertanyaan;
                             this.pilihanGanda = data.data_ujian[this.noSoal - 1].pilihan_pg;
                             this.jawabanPilihan = data.data_ujian[this.noSoal - 1].jawaban_pg;
                             this.idBank = data.data_ujian[this.noSoal - 1].id_bank;
                             this.dataUjian = data.data_ujian;
+                            this.expiry = Date.parse(data.ujian_selesai);
                             // console.log(new Date().setDate(new Date().getDate()+1));
+                            this.setTimer();
                         })
-                        .catch((error) => {
-                            console.error(error);
+                        .catch(({
+                            response
+                        }) => {
+                            console.error(response);
+                            const errorModal = new bootstrap.Modal(document.getElementById('error-modal'), {
+                                keyboard: false
+                            });
+                            if (response.status == 404) {
+                                // alert(response.data.message);
+                                this.errorTitle = "Error " + response.status;
+                                this.errorMessage = response.data.message;
+                                this.errorRedirect = "{{ route('siswa.get.soal') }}" + "?token=" + this.token;
+                                errorModal.show();
+                            }
                         });
+                },
+                setTimer() {
+                    this.setRemaining();
+                    setInterval(() => {
+                        console.log(this.remaining);
+                        this.setRemaining();
+                        if (this.remaining <= 0) {
+                            this.finish();
+                        }
+                    }, 1000);
+                },
+                setRemaining() {
+                    const diff = this.expiry - new Date().getTime();
+                    this.remaining = parseInt(diff / 1000);
+                },
+                days() {
+                    return {
+                        value: this.remaining / 86400,
+                        remaining: this.remaining % 86400
+                    };
+                },
+                hours() {
+                    return {
+                        value: this.days().remaining / 3600,
+                        remaining: this.days().remaining % 3600,
+                    };
+                },
+                minutes() {
+                    return {
+                        value: this.hours().remaining / 60,
+                        remaining: this.hours().remaining % 60,
+                    };
+                },
+                seconds() {
+                    return {
+                        value: this.minutes().remaining,
+                    };
+                },
+                format(value) {
+                    return ("0" + parseInt(value)).slice(-2)
+                },
+                time() {
+                    return {
+                        hours: this.format(this.hours().value),
+                        minutes: this.format(this.minutes().value),
+                        seconds: this.format(this.seconds().value),
+                    }
                 },
                 step(langkah) {
                     let status;
@@ -143,7 +231,9 @@
                             data
                         }) => {
                             if (noSoal == this.pilihanGanda.length && status == 2) {
-                                alert("Sudah Selesai?");
+                                if (confirm("Apakah Anda Sudah Selesai?")) {
+                                    this.finish();
+                                }
                             } else {
                                 window.location.href = '{{ route('siswa.get.ujian') }}' + '?idSoal=' + data.idSoal +
                                     '&noSoal=' + data.noSoal + '&token=' + this.token;
@@ -154,8 +244,10 @@
                         });
                 },
                 changePage(noSoal) {
-                    window.location.href = '{{ route('siswa.get.ujian') }}' + '?idSoal=' + this.idSoal + '&noSoal=' +
-                        noSoal + '&token=' + this.token;
+                    this.update(noSoal, 1);
+                },
+                finish(){
+                    console.log("Redirect Ke Report");
                 }
             }
         }
