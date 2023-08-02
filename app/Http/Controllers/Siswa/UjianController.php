@@ -52,6 +52,12 @@ class UjianController extends Controller
         $getUjian = Ujian::where('soal_id', $idSoal)
             ->where('user_id', $this->user->id)
             ->first();
+
+        if ($getUjian->status_ujian == "Selesai") {
+            return response()->json([
+                'message'   => 'Ujian Telah Usai!'
+            ], 301);
+        }
         
         $listJawaban = json_decode($getUjian->list_jawaban, true); 
         
@@ -97,22 +103,14 @@ class UjianController extends Controller
         $getUjian = Ujian::where('user_id', $this->user->id)
             ->where('soal_id', $getSoal->id)
             ->first();
-        // dd($getSoal);
+            
         if ($getUjian == null) {
-            // dd($getSoal->acak);
+
             $getSoalUjian = $this->generateSoal($getSoal->acak, $getSoal->id);
             
-            // dd($getSoal);
             $durasi = $getSoal->durasi;
-            // dd($durasi);
-            $dateTime = DateTime::createFromFormat('H:i:s', $durasi);
-
-            $jam = $dateTime->format('G');
-            $menit = $dateTime->format('i');
-
-            $result = '+' . $jam . ' hours +' . $menit . ' minutes';
-
-            $waktuSelesai = date("Y-m-d H:i:s", strtotime($getSoal->waktu_mulai.$result));
+            
+            $waktuSelesai = $this->setWaktuSelesai($getSoal->waktu_mulai, $durasi);
 
             $data = array(
                 'user_id'   => $this->user->id,
@@ -126,7 +124,29 @@ class UjianController extends Controller
             );
 
             Ujian::insert($data);
+        } else {
+            if ($getUjian->waktu_selesai < $getSoal->waktu_mulai) {
+                $durasi = $getSoal->durasi;
+                $waktuSelesai = $this->setWaktuSelesai($getSoal->waktu_mulai, $durasi);
+
+                Ujian::where('id', $getUjian->id)->update(
+                    [
+                        'waktu_selesai' => $waktuSelesai
+                    ]
+                );
+            }
         }
+    }
+
+    private function setWaktuSelesai($waktuMulai, $durasi){
+        $dateTime = DateTime::createFromFormat('H:i:s', $durasi);
+
+        $jam = $dateTime->format('G');
+        $menit = $dateTime->format('i');
+
+        $result = '+' . $jam . ' hours +' . $menit . ' minutes';
+        $waktuSelesai = date("Y-m-d H:i:s", strtotime($waktuMulai.$result));
+        return $waktuSelesai;
     }
 
     private function generateSoal($acak = 0, $id){

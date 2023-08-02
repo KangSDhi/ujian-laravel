@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\PenggunaController as PenggunaAdmin;
 use App\Http\Controllers\Siswa\DashboardController as DashboardSiswa;
 use App\Http\Controllers\Siswa\SoalController as SoalSiswa;
 use App\Http\Controllers\Siswa\UjianController as UjianSiswa;
+use App\Http\Controllers\Siswa\ResultUjianController as ResultUjianSiswa;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,5 +61,7 @@ Route::middleware(['auth:jwt', 'cekrole.siswa'])->prefix('siswa')->name('siswa.'
     Route::get('/ujian', [UjianSiswa::class, 'index'])->name('get.ujian');
     Route::post('/ujian', [UjianSiswa::class, 'getSoal'])->name('post.getSoal.ujian');
     Route::post('/ujian/update', [UjianSiswa::class, 'update'])->name('post.update.ujian');
+    Route::get('/ujian/result', [ResultUjianSiswa::class, 'index'])->name('get.index.result.ujian');
+    Route::post('/ujian/result', [ResultUjianSiswa::class, 'getResultUjian'])->name('post.getResultUjian');
     Route::get('/logout', [Auth::class, 'logout'], 'logout')->name('get.logout');
 });

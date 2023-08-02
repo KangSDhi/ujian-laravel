@@ -153,6 +153,10 @@
                                 this.errorRedirect = "{{ route('siswa.get.soal') }}" + "?token=" + this.token;
                                 errorModal.show();
                             }
+
+                            if (response.status == 301) {
+                                this.finish();
+                            }
                         });
                 },
                 setTimer() {
@@ -248,6 +252,7 @@
                 },
                 finish(){
                     console.log("Redirect Ke Report");
+                    window.location.href = '{{ route('siswa.get.index.result.ujian') }}' + '?idSoal=' + this.idSoal + '&token=' + this.token;
                 }
             }
         }
