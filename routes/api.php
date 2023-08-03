@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\Auth\AuthController as Auth;
 use App\Http\Controllers\API\Test\TestController as Test;
+use App\Http\Controllers\API\Test\FileController as FileTest;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,4 +22,6 @@ Route::post('/login', [Auth::class, 'login']);
 Route::get('/check_auth', [Auth::class, 'checkAuth']);
 
 Route::get('/testdata', [Test::class, 'getDataSiswaTest']);
+Route::post('/file', [FileTest::class, 'store']);
+Route::get('/file', [FileTest::class, 'show']);
 // });
