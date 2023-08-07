@@ -15,7 +15,7 @@ services:
         command: rr serve -c .rr.development.yaml
         volumes:
             - ./:/var/www
-            
+            - ./docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
         networks:
             - simulasi-laravel-network
 
