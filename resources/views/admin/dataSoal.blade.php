@@ -124,8 +124,10 @@
                                                 <template x-if="item.acak == 0">
                                                     <td>Tidak Acak</td>
                                                 </template>
-                                                <td x-data="{ button: '<a href=\'#?token='+token+'\' class=\'btn btn-info mx-2\'>Edit</a><a href=\'#?token='+token+'\' class=\'btn btn-danger\'>Hapus</a>'  }">
-                                                    <span x-html="button"></span>
+                                                <td>
+                                                    <a x-data="{ url: '{{ url('admin/soal/bank') }}' + '/' + item.id + '?token=' + token  }" :href="url" class="btn btn-warning mx-2">Buka</a>
+                                                    <a x-data="{ url: '#?token=' + token  }" :href="url" class="btn btn-info mx-2">Edit</a>
+                                                    <a x-data="{ url: '#?token=' + token  }" :href="url" class="btn btn-danger mx-2">Hapus</a>
                                                 </td>
                                             </tr>
                                         </template>

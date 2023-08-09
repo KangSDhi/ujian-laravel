@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\GuruController as GuruAdmin;
 use App\Http\Controllers\Admin\SiswaController as SiswaAdmin;
 use App\Http\Controllers\Admin\SoalController as SoalAdmin;
 use App\Http\Controllers\Admin\PenggunaController as PenggunaAdmin;
+use App\Http\Controllers\Admin\BankSoalController as BankSoalAdmin;
 use App\Http\Controllers\Siswa\DashboardController as DashboardSiswa;
 use App\Http\Controllers\Siswa\SoalController as SoalSiswa;
 use App\Http\Controllers\Siswa\UjianController as UjianSiswa;
@@ -51,6 +52,8 @@ Route::middleware(['auth:jwt', 'cekrole.admin'])->prefix('admin')->name('admin.'
     Route::get('/pengguna/get/{email}', [PenggunaAdmin::class, 'getPengguna'])->name('get.pengguna');
     Route::post('/pengguna/update', [PenggunaAdmin::class, 'update'])->name('post.update.pengguna');
     Route::get('/pengguna/delete/{email}', [PenggunaAdmin::class, 'delete'])->name('get.delete.pengguna');
+    Route::get('/soal/bank/{id_soal}', [BankSoalAdmin::class, 'index'])->name('get.soal.banksoal');
+    Route::post('/soal/soalin/bank', [BankSoalAdmin::class, 'getSoalInBankSoal'])->name('post.soal.in.banksoal');
     Route::get('/logout', [Auth::class, 'logout'])->name('get.logout');
 });
 
