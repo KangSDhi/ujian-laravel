@@ -241,4 +241,23 @@ class BankSoalController extends Controller
             'message'   => 'Berhasil Mengubah Data!'
         ], 201);
     }
+
+    public function destroy(Request $request){
+        $validator = Validator::make($request->all(), [
+            'id'    => 'required',
+        ], [
+            'id.required'   => 'Id Bank Soal Kosong!'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+
+        BankSoal::where('id', $request->id)->delete();
+
+        return response()->json([
+            'success'   => true,
+            'message'   => 'Berhasil Menghapus Data!'
+        ], 201);
+    }
 }

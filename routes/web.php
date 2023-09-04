@@ -58,6 +58,7 @@ Route::middleware(['auth:jwt', 'cekrole.admin'])->prefix('admin')->name('admin.'
     Route::post('/soal/bank/upload/gambar/pilihan', [BankSoalAdmin::class, 'uploadGambarPilihan'])->name('post.soal.bank.upload.gambar.pilihan');
     Route::post('/soal/bank/update', [BankSoalAdmin::class, 'update'])->name('post.soal.bank.update');
     Route::post('/soal/bank/store', [BankSoalAdmin::class, 'store'])->name('post.soal.bank.store');
+    Route::post('/soal/bank/delete', [BankSoalAdmin::class, 'destroy'])->name('post.soal.bank.destroy');
     Route::get('/logout', [Auth::class, 'logout'])->name('get.logout');
 });
 

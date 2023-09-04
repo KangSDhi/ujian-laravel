@@ -44,11 +44,20 @@
                                     <div class="container-fluid my-2">
                                         <div class="row">
                                             <div class="col-11">
-                                                <label x-bind:for="'pertanyaan-'+index">Pertanyaan</label>
+                                                <label x-bind:for="'pertanyaan-'+index">Pertanyaan No. <span x-text="index+1"></span></label>
                                                 <textarea x-bind:id="'pertanyaan-'+index" class="form-control" :class="item.pertanyaan_error != null && 'is-invalid'" rows="5" x-model="item.pertanyaan"></textarea>
                                                 <span class="invalid-feedback" x-text="item.pertanyaan_error"></span>
-                                                <img x-show="item.gambar_pertanyaan != null" class="img-thumbnail my-2"
-                                                    style="width: 40rem" :src="item.gambar_pertanyaan_path" alt="">
+
+                                                <template x-if="item.gambar_pertanyaan != null">
+                                                    <div class="d-flex align-items-start py-2">
+                                                        <img class="img-thumbnail"
+                                                            style="width: 40rem" :src="item.gambar_pertanyaan_path" alt="">
+                                                        <button class="btn btn-danger mx-2" @click="hapusGambarUpdateSoal(index, 'pertanyaan')">
+                                                            <i class="bi bi-trash3"></i>
+                                                        </button>
+                                                    </div>
+                                                </template>
+                                                
                                             </div>
                                             <div class="col-1 p-4">
                                                 <label x-bind:for="'upload-gambar-pertanyaan-' + index" class="btn btn-primary mb-2">
@@ -60,7 +69,7 @@
                                                 <button class="btn btn-secondary mb-2">
                                                     <i class="bi bi-eye-fill"></i>
                                                 </button>
-                                                <button class="btn btn-danger">
+                                                <button @click="hapusSoal(index)" class="btn btn-danger">
                                                     <i class="bi bi-trash3"></i>
                                                 </button>
                                             </div>
@@ -95,9 +104,16 @@
                                                             <span class="invalid-feedback" x-text="item.nilai_a_error"></span>
                                                         </div>
                                                     </div>
-                                                    <img x-show="item.gambar_pilihan_a_path != null"
-                                                        class="img-thumbnail my-2" style="width: 20rem"
-                                                        :src="item.gambar_pilihan_a_path" alt="">
+
+                                                    <template x-if="item.gambar_pilihan_a_path != null">
+                                                        <div class="d-flex align-items-start py-2">
+                                                            <img class="img-thumbnail" style="width: 20rem"
+                                                            :src="item.gambar_pilihan_a_path" alt="">
+                                                            <button class="btn btn-danger mx-2" @click="hapusGambarUpdateSoal(index, 'pilihan-a')">
+                                                                <i class="bi bi-trash3"></i>
+                                                            </button>
+                                                        </div>
+                                                    </template>
                                                 </div>
                                                 <div class="form-group">
                                                     <div class="row">
@@ -127,9 +143,16 @@
                                                             <span class="invalid-feedback" x-text="item.nilai_b_error"></span>
                                                         </div>
                                                     </div>
-                                                    <img x-show="item.gambar_pilihan_b_path != null"
-                                                        class="img-thumbnail my-2" style="width: 20rem"
-                                                        :src="item.gambar_pilihan_b_path" alt="">
+
+                                                    <template x-if="item.gambar_pilihan_b_path != null">
+                                                        <div class="d-flex align-items-start py-2">
+                                                            <img class="img-thumbnail my-2" style="width: 20rem"
+                                                                :src="item.gambar_pilihan_b_path" alt="">
+                                                            <button class="btn btn-danger mx-2" @click="hapusGambarUpdateSoal(index, 'pilihan-b')">
+                                                                <i class="bi bi-trash3"></i>
+                                                            </button>
+                                                        </div>
+                                                    </template>
                                                 </div>
                                                 <div class="form-group">
                                                     <div class="row">
@@ -158,9 +181,17 @@
                                                             <span class="invalid-feedback" x-text="item.nilai_c_error"></span>
                                                         </div>
                                                     </div>
-                                                    <img x-show="item.gambar_pilihan_c_path != null"
-                                                        class="img-thumbnail my-2" style="width: 20rem"
-                                                        :src="item.gambar_pilihan_c_path" alt="">
+
+                                                    <template x-if="item.gambar_pilihan_c_path != null">
+                                                        <div class="d-flex align-items-start py-2">
+                                                            <img class="img-thumbnail" style="width: 20rem"
+                                                            :src="item.gambar_pilihan_c_path" alt="">
+                                                            <button class="btn btn-danger mx-2" @click="hapusGambarUpdateSoal(index, 'pilihan-c')">
+                                                                <i class="bi bi-trash3"></i>
+                                                            </button>
+                                                        </div>
+                                                    </template>
+                                                    
                                                 </div>
                                                 <div class="form-group">
                                                     <div class="row">
@@ -190,9 +221,17 @@
                                                             <span class="invalid-feedback" x-text="item.nilai_d_error"></span>
                                                         </div>
                                                     </div>
-                                                    <img x-show="item.gambar_pilihan_d_path != null"
-                                                        class="img-thumbnail my-2" style="width: 20rem"
-                                                        :src="item.gambar_pilihan_d_path" alt="">
+
+                                                    <template x-if="item.gambar_pilihan_d_path != null">
+                                                        <div class="d-flex align-items-start py-2">
+                                                            <img class="img-thumbnail" style="width: 20rem"
+                                                            :src="item.gambar_pilihan_d_path" alt="">
+                                                            <button class="btn btn-danger mx-2" @click="hapusGambarUpdateSoal(index, 'pilihan-d')">
+                                                                <i class="bi bi-trash3"></i>
+                                                            </button>
+                                                        </div>
+                                                    </template>
+                                                    
                                                 </div>
                                                 <div class="form-group">
                                                     <div class="row">
@@ -222,9 +261,17 @@
                                                             <span class="invalid-feedback" x-text="item.nilai_e_error"></span>
                                                         </div>
                                                     </div>
-                                                    <img x-show="item.gambar_pilihan_e_path != null"
-                                                        class="img-thumbnail my-2" style="width: 20rem"
-                                                        :src="item.gambar_pilihan_e_path" alt="">
+
+                                                    <template x-if="item.gambar_pilihan_e_path != null">
+                                                        <div class="d-flex align-items-start py-2">
+                                                            <img class="img-thumbnail" style="width: 20rem"
+                                                            :src="item.gambar_pilihan_e_path" alt="">
+                                                            <button class="btn btn-danger mx-2" @click="hapusGambarUpdateSoal(index, 'pilihan-e')">
+                                                                <i class="bt bi-trash3"></i>
+                                                            </button>
+                                                        </div>
+                                                    </template>
+                                                    
                                                 </div>
                                                 <div class="d-flex my-2 justify-content-end">
                                                     <button class="btn btn-primary" @click="updateSoal(data[index], index)">
@@ -598,7 +645,6 @@
                         .then(({
                             data
                         }) => {
-                            console.log(data);
                             window.location.href = "{{ url('admin/soal/bank/') }}" + "/" + this.idSoal + "?token=" + this.token;
                         })
                         .catch(({
@@ -642,7 +688,7 @@
                         }
                     })
                     .then(({ data }) => {
-                        console.log(data);
+                        window.location.href = "{{ url('admin/soal/bank/') }}" + "/" + this.idSoal + "?token=" + this.token;
                     })
                     .catch(({ response }) => {
                         if (response.status == 422) {
@@ -812,6 +858,46 @@
                     }else if(elemen == 'pilihan-e'){
                         this.dataTambahSoal.pilihan_e = null;
                         this.dataTambahSoal.gambar_pilihan_e_path = null;
+                    }
+                },
+                hapusGambarUpdateSoal(index, elemen){
+                    console.log({index, elemen});
+                    if (elemen == 'pertanyaan') {
+                        this.data[index].gambar_pertanyaan = null;
+                        this.data[index].gambar_pertanyaan_path = null;
+                    }else if(elemen == 'pilihan-a'){
+                        this.data[index].pilihan_a = null;
+                        this.data[index].gambar_pilihan_a_path = null;
+                    }else if(elemen == 'pilihan-b'){
+                        this.data[index].pilihan_b = null;
+                        this.data[index].gambar_pilihan_b_path = null;
+                    }else if(elemen == 'pilihan-c'){
+                        this.data[index].pilihan_c = null;
+                        this.data[index].gambar_pilihan_c_path = null;
+                    }else if(elemen == 'pilihan-d'){
+                        this.data[index].pilihan_d = null;
+                        this.data[index].gambar_pilihan_d_path = null;
+                    }else if(elemen == 'pilihan-e'){
+                        this.data[index].pilihan_e = null;
+                        this.data[index].gambar_pilihan_e_path = null;
+                    }
+                },
+                hapusSoal(index){
+                    if (confirm("Hapus Soal No. "+parseInt(index+1))) {
+                        console.log(index);
+                        axios.post("{{ route("admin.post.soal.bank.destroy") }}", {
+                            id: this.data[index].id,
+                        }, {
+                            headers: {
+                                'Authorization': 'Bearer ' + this.token
+                            }
+                        })
+                        .then((response) => {
+                            window.location.href = "{{ url('admin/soal/bank/') }}" + "/" + this.idSoal + "?token=" + this.token;
+                        })
+                        .catch((error) => {
+                            console.error(error);
+                        });
                     }
                 }
             }
