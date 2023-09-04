@@ -11,7 +11,7 @@ class SoalController extends Controller
 {
     public function getAllSoal()
     {
-        $data = Soal::select('nama_soal', 'butir_soal', 'acak')
+        $data = Soal::select('id', 'nama_soal', 'butir_soal', 'acak')
             ->get();
         return response()->json([
             'success'   => true,

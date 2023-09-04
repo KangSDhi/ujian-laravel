@@ -10,8 +10,9 @@ class TestController extends Controller
 {
     public function getDataSiswaTest(){
         $query = User::where('role_id', 3)->get();
-        return response()->json([
-            'data' => $query
-        ]);
+        // return response()->json([
+        //     'data' => $query
+        // ]);
+        dd($query);
     }
 }

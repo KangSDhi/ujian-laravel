@@ -36,8 +36,8 @@
 
 @section('content')
     <form class="form-signin">
-        <div class="text-center">
-            <img class="mb-4" src="{{ asset('assets/img/logo_smk.png') }}" alt="" width="82" height="67">
+        <div class="d-flex">
+            <img class="mb-2" src="{{ asset('assets/img/logo.svg') }}" alt="" width="420" height="330">
         </div>
         <h1 class="h3 mb-3 fw-normal">Silahkan Masuk</h1>
 
